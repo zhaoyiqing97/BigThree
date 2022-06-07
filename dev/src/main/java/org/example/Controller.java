@@ -22,4 +22,11 @@ public class Controller {
         return gson.toJson(articleTypeDOSList);
     }
 
+    @GetMapping("/update")
+    public void update(){
+            String ArticleType1 = "{\"create_user\":0,\"id\":4,\"power\":1,\"state\":0,\"typename\":\"公告\",\"update_user\":0}";
+            ArticleType articleType1=gson.fromJson(ArticleType1,ArticleType.class);
+            ArticleTypeMapper.updateById(articleType1);
+    }
+
 }
