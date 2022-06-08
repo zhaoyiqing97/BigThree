@@ -37,7 +37,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -60,11 +59,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
             <version>8.0.28</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.5</version>
         </dependency>
     </dependencies>
     <build>
@@ -124,26 +118,5 @@
             </plugin>
         </plugins>
     </build>
-    <!--解决启动报错 扫描yml配置文件-->
-    <resources>
-        <resource>
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.yml</include>
-                <include>**/*.properties</include>
-                <include>**/*.xml</include>
-            </includes>
-            <filtering>false</filtering>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*.yml</include>
-                <include>**/*.properties</include>
-                <include>**/*.xml</include>
-            </includes>
-            <filtering>false</filtering>
-        </resource>
-    </resources>
 
 </project>
