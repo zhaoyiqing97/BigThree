@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ArticleInfoMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ArticleInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="authorId" column="author_id" jdbcType="BIGINT"/>
+            <result property="releaseTime" column="release_time" jdbcType="TIMESTAMP"/>
+            <result property="typeId" column="type_id" jdbcType="BIGINT"/>
+            <result property="visitNum" column="visit_num" jdbcType="BIGINT"/>
+            <result property="commentNum" column="comment_num" jdbcType="INTEGER"/>
+            <result property="payKiss" column="pay_kiss" jdbcType="INTEGER"/>
+            <result property="cream" column="cream" jdbcType="INTEGER"/>
+            <result property="stick" column="stick" jdbcType="INTEGER"/>
+            <result property="isDone" column="is_done" jdbcType="INTEGER"/>
+            <result property="markdownContent" column="markdown_content" jdbcType="VARCHAR"/>
+            <result property="htmlContent" column="html_content" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,author_id,
+        release_time,type_id,visit_num,
+        comment_num,pay_kiss,cream,
+        stick,is_done,markdown_content,
+        html_content,state,create_time,
+        create_user,update_time,update_user
+    </sql>
+</mapper>

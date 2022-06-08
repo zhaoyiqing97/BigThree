@@ -10,6 +10,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
+ * @autuor zhaoyiqing
  * @TableName article_type
  */
 @TableName(value = "article_type")
