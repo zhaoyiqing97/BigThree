@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.UserInfoMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.UserInfo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="headUrl" column="head_url" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="sign" column="sign" jdbcType="VARCHAR"/>
+        <result property="kissNum" column="kiss_num" jdbcType="INTEGER"/>
+        <result property="experience" column="experience" jdbcType="INTEGER"/>
+        <result property="authority" column="authority" jdbcType="INTEGER"/>
+        <result property="active" column="active" jdbcType="BIT"/>
+        <result property="activeCode" column="active_code" jdbcType="VARCHAR"/>
+        <result property="lastSign" column="last_sign" jdbcType="DATE"/>
+        <result property="signDays" column="sign_days" jdbcType="INTEGER"/>
+        <result property="regTime" column="reg_time" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,email,nickname,
+        password,head_url,city,
+        sex,sign,kiss_num,
+        experience,authority,active,
+        active_code,last_sign,sign_days,
+        reg_time,state,create_time,
+        create_user,update_time,update_user
+    </sql>
+</mapper>

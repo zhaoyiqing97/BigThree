@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.CollectionInfoMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.CollectionInfo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="collectionId" column="collection_id" jdbcType="BIGINT"/>
+        <result property="articleId" column="article_id" jdbcType="BIGINT"/>
+        <result property="collectionTime" column="collection_time" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,collection_id,article_id,
+        collection_time,state,create_time,
+        create_user,update_time,update_user
+    </sql>
+</mapper>
