@@ -35,7 +35,7 @@ jobs:
           ls backend/target/extracted 
 
       - name: upload-artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: target-file
           path: backend/target
@@ -71,7 +71,7 @@ jobs:
           password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: download-artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: target-file
           path: backend/target
