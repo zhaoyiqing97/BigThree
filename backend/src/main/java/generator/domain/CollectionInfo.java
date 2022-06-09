@@ -10,7 +10,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * @TableName collection_info
+ * @author liubin @TableName collection_info
  */
 @TableName(value = "collection_info")
 @Data

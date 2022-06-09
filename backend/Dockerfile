@@ -7,11 +7,13 @@ RUN mkdir /logs && chown spring:spring /logs
 RUN mkdir /app && chown spring:spring /app
 USER spring:spring
 
-ARG EXTRACTED=/workspace/app/target/extracted
-COPY ${EXTRACTED}/dependencies/ ./
-COPY ${EXTRACTED}/spring-boot-loader/ ./
-COPY ${EXTRACTED}/snapshot-dependencies/ ./
-COPY ${EXTRACTED}/application/ ./
+WORKDIR app
+COPY ./target/extracted/dependencies/ ./
+COPY ./target/extracted/spring-boot-loader/ ./
+COPY ./target/extracted/snapshot-dependencies/ ./
+COPY ./target/extracted/application/ ./
+
+ENV JAVA_OPTS="-Xmx100m -Xms100m -XX:+UseG1GC"
 
 # JarLauncher是从 JAR 中提取到镜像中的，因此它可以用于启动应用程序，而无需对主应用程序类进行硬编码。
 ENTRYPOINT ["sh", "-c","java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher"]
