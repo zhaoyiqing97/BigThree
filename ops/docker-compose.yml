@@ -15,7 +15,7 @@ services:
     image: ghcr.io/zhaoyiqing97/big_three/backend
     container_name: backend
     environment:
-      - JAVA_OPTS="-Xmx128m -Xms128m -XX:+UseG1GC"
+      - JAVA_OPTS="-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod"
 
   frontend:
     image: ghcr.io/zhaoyiqing97/big_three/frontend
