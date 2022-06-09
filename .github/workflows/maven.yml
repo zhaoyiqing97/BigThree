@@ -80,7 +80,6 @@ jobs:
           mkdir ${{env.CONTEXT}}/target
           tar -xvf target.tar -C ${{env.CONTEXT}}/target
           ls ${{env.CONTEXT}}/target
-          ls ${{env.CONTEXT}}/target/extracted
 
       - name: Extract Docker metadata
         id: meta
