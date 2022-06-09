@@ -32,7 +32,8 @@ jobs:
           mvn install --file backend/pom.xml
           mkdir ${{env.CONTEXT}}/target/extracted
           java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted
-          tar -cvf target.tar ${{env.CONTEXT}}/target/
+          cd ${{env.CONTEXT}}
+          tar -cvf target.tar target/
 
       - name: upload-artifact
         uses: actions/upload-artifact@v3
@@ -78,7 +79,7 @@ jobs:
       - name: tar file
         run: |
           mkdir ${{env.CONTEXT}}/target
-          tar -xvf target.tar -C ${{env.CONTEXT}}/target
+          tar -xvf target.tar -C ${{env.CONTEXT}}/
           ls ${{env.CONTEXT}}/target
 
       - name: Extract Docker metadata
