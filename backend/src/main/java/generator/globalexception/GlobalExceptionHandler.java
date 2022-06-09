@@ -7,10 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 全局异常类
+ * @author WangMingXin
+ */
 @RestControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
-    // 打印log
+    /**打印log */
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
