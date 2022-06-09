@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import generator.domain.ArticleType;
 
 /**
@@ -12,4 +14,11 @@ import generator.domain.ArticleType;
  * @createDate 2022-06-08 09:28:25
  */
 @Service
-public interface ArticleTypeService extends IService<ArticleType> {}
+public interface ArticleTypeService extends IService<ArticleType> {
+  /**
+   * selectAll
+   *
+   * @return list
+   */
+  List<ArticleType> selectAll();
+}

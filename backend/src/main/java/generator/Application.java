@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author zyq
  */
 @SpringBootApplication
-@MapperScan("org.example.mapper")
+@MapperScan("generator.mapper")
 public class Application {
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);

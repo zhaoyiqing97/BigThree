@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import generator.domain.ArticleType;
 import generator.mapper.ArticleTypeMapper;
 import generator.service.ArticleTypeService;
@@ -15,4 +17,16 @@ import generator.service.ArticleTypeService;
  */
 @Service
 public class ArticleTypeServiceImpl extends ServiceImpl<ArticleTypeMapper, ArticleType>
-    implements ArticleTypeService {}
+    implements ArticleTypeService {
+
+  private final ArticleTypeMapper articleTypeMapper;
+
+  public ArticleTypeServiceImpl(ArticleTypeMapper articleTypeMapper) {
+    this.articleTypeMapper = articleTypeMapper;
+  }
+
+  @Override
+  public List<ArticleType> selectAll() {
+    return articleTypeMapper.selectList(null);
+  }
+}
