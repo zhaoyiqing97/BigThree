@@ -77,6 +77,7 @@ jobs:
 
       - name: tar file
         run: |
+          mkdir ${{env.CONTEXT}}/target
           tar -xvf target.tar -C ${{env.CONTEXT}}/target
           ls ${{env.CONTEXT}}/target
           ls ${{env.CONTEXT}}/target/extracted
