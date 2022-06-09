@@ -4,16 +4,11 @@
 name: Java CI with Maven
 
 on:
-  push:
-    branches: [ "prod" ]
-  pull_request:
-    branches: [ "prod" ]
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 8
