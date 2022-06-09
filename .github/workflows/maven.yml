@@ -19,6 +19,6 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: | 
-        mvn install --file ./backend/pom.xml
+        mvn install --file backend/pom.xml
         mkdir backend/target/extracted
         java -Djarmode=layertools -jar backend/target/*.jar extract --destination backend/target/extracted
