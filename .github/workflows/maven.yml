@@ -18,4 +18,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn install --file ./backend/pom.xml
+      run: | 
+        mvn install --file ./backend/pom.xml
+        mkdir target/extracted
+        java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
