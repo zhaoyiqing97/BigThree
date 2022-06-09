@@ -1,4 +1,4 @@
-package generator.globalException;
+package generator.globalexception;
 
 import generator.domain.JsonResult;
 import org.slf4j.Logger;
