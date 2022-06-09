@@ -30,15 +30,15 @@ jobs:
       - name: Build with Maven
         run: |
           mvn install --file backend/pom.xml
-          mkdir backend/target/extracted
-          java -Djarmode=layertools -jar backend/target/*.jar extract --destination backend/target/extracted
-          ls backend/target/extracted 
+          mkdir ${{env.CONTEXT}}/target/extracted
+          java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted
+          tar -cvf target.tar ${{env.CONTEXT}}/target/
 
       - name: upload-artifact
         uses: actions/upload-artifact@v3
         with:
           name: target-file
-          path: backend/target
+          path: target.tar
           retention-days: 1
 
   docker:
@@ -74,7 +74,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: target-file
-          path: backend/target
+          path: target.tar
+        run: | 
+          tar -xvf target.tar -C ${{env.CONTEXT}}/target
+          ls ${{env.CONTEXT}}/target
+          ls ${{env.CONTEXT}}/target/extracted
 
       - name: Extract Docker metadata
         id: meta
