@@ -34,6 +34,7 @@ jobs:
           java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted
           cd ${{env.CONTEXT}}
           tar -cvf target.tar target/
+          mv ./target.tar ../
 
       - name: upload-artifact
         uses: actions/upload-artifact@v3
