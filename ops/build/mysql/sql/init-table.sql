@@ -1,12 +1,3 @@
--- init
--- 数据库
-CREATE DATABASE IF NOT EXISTS big_three
-    DEFAULT CHARACTER SET utf8mb4
-    DEFAULT COLLATE utf8mb4_zh_0900_as_cs;
--- 用户
-CREATE USER big_three IDENTIFIED BY 'big_three';
--- 权限
-GRANT ALL ON big_three.* TO big_three;
 -- 创建表
 USE big_three;
 
@@ -57,18 +48,6 @@ CREATE TABLE `article_type`
     `update_user` BIGINT       NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
-
--- ----------------------------
--- Records of articletype
--- ----------------------------
-INSERT INTO `article_type`
-VALUES ('1', '提问', '0', 0, NOW(), 0, NULL, NULL);
-INSERT INTO `article_type`
-VALUES ('2', '活动', '0', 0, NOW(), 0, NULL, NULL);
-INSERT INTO `article_type`
-VALUES ('3', '分享', '0', 0, NOW(), 0, NULL, NULL);
-INSERT INTO `article_type`
-VALUES ('4', '公告', '1', 0, NOW(), 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for collection_info
@@ -148,8 +127,7 @@ CREATE TABLE `praise_info`
     `update_time` DATETIME NULL,
     `update_user` BIGINT   NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB;
 
 -- ----------------------------
 -- Table structure for user_info

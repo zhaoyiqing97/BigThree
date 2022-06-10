@@ -7,6 +7,8 @@
 *.war
 *.ear
 target/
+node_modules/
+dist/
 
 # idea
 .idea/
@@ -29,7 +31,6 @@ target/
 .settings/
 bin/
 
-*.log
 tem/
 
 #rebel

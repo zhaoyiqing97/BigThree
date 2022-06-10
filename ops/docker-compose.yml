@@ -10,14 +10,15 @@ services:
       - /var/lib/mysql-files
     environment:
       - MYSQL_ROOT_PASSWORD=ZAQ!2wsx
-  java:
-    image: big_three/backend
-    ports:
-      - '8080:8080'
-    environment:
-      - JAVA_OPTS="-Xmx128m -Xms128m -XX:+UseG1GC"
 
-networks:
-  default:
-    external:
-      name: big_three_bridge
+  backend:
+    image: ghcr.io/zhaoyiqing97/big_three/backend
+    container_name: backend
+    environment:
+      - JAVA_OPTS="-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod"
+
+  frontend:
+    image: ghcr.io/zhaoyiqing97/big_three/frontend
+    container_name: frontend
+    ports:
+      - '80:80'
