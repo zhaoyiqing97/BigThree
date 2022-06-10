@@ -33,7 +33,10 @@ jobs:
           mvn clean install --file backend/pom.xml
           mkdir ${{env.CONTEXT}}/target/extracted
           java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted
-          cd ${{env.CONTEXT}}
+
+      - name: tar file
+        working-directory: ${{env.CONTEXT}}
+        run: |
           tar -cvf target.tar target/
           mv ./target.tar ../
 

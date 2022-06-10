@@ -26,11 +26,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
       - name: build with npm
         run: |
           cd ${{env.CONTEXT}}
@@ -39,8 +41,8 @@ jobs:
       #          npm test
 
       - name: tar file
+        working-directory: ${{env.CONTEXT}}
         run: |
-          cd ${{env.CONTEXT}}
           tar -cvf dist.tar dist/
           mv ./dist.tar ../          
 
