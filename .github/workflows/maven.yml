@@ -11,6 +11,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: big_three/backend
+  USER_NAME: zhaoyiqing97
   CONTEXT: backend
 
 jobs:
@@ -32,7 +33,9 @@ jobs:
           mvn install --file backend/pom.xml
           mkdir ${{env.CONTEXT}}/target/extracted
           java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted
-          tar -cvf target.tar ${{env.CONTEXT}}/target/
+          cd ${{env.CONTEXT}}
+          tar -cvf target.tar target/
+          mv ./target.tar ../
 
       - name: upload-artifact
         uses: actions/upload-artifact@v3
@@ -40,6 +43,7 @@ jobs:
           name: target-file
           path: target.tar
           retention-days: 1
+          if-no-files-found: error
 
   docker:
     needs: [ build ]
@@ -67,7 +71,7 @@ jobs:
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: ${{ env.USER_NAME }}
           password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: download-artifact
@@ -78,14 +82,14 @@ jobs:
       - name: tar file
         run: |
           mkdir ${{env.CONTEXT}}/target
-          tar -xvf target.tar -C ${{env.CONTEXT}}/target
+          tar -xvf target.tar -C ${{env.CONTEXT}}/
           ls ${{env.CONTEXT}}/target
 
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}
           flavor: |
             latest=auto
           tags: |
@@ -100,11 +104,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Sign the published Docker image
-        env:
-          COSIGN_EXPERIMENTAL: true
-        # This step uses the identity token to provision an ephemeral certificate
-        # against the sigstore community Fulcio instance.
-        run: cosign sign ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ steps.build-and-push.outputs.tags }}
+#      - name: Sign the published Docker image
+#        env:
+#          COSIGN_EXPERIMENTAL: "true"
+#        # This step uses the identity token to provision an ephemeral certificate
+#        # against the sigstore community Fulcio instance.
+#        run: cosign sign ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.build-and-push.outputs.tags }}
 
 
