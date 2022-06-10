@@ -11,6 +11,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: big_three/backend
+  USER_NAME: zhaoyiqing97
   CONTEXT: backend
 
 jobs:
@@ -42,6 +43,7 @@ jobs:
           name: target-file
           path: target.tar
           retention-days: 1
+          if-no-files-found: error
 
   docker:
     needs: [ build ]
@@ -69,7 +71,7 @@ jobs:
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: ${{ env.USER_NAME }}
           password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: download-artifact
@@ -87,7 +89,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}
           flavor: |
             latest=auto
           tags: |
@@ -107,6 +109,6 @@ jobs:
           COSIGN_EXPERIMENTAL: true
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
-        run: cosign sign ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ steps.build-and-push.outputs.tags }}
+        run: cosign sign ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.build-and-push.outputs.tags }}
 
 
