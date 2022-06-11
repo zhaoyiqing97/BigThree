@@ -15,10 +15,10 @@ services:
     image: ghcr.io/zhaoyiqing97/big_three/backend
     container_name: backend
     environment:
-      - JAVA_OPTS="-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod"
+      - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
 
   frontend:
     image: ghcr.io/zhaoyiqing97/big_three/frontend
     container_name: frontend
     ports:
-      - '80:80'
+      - '8080:80'
