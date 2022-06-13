@@ -5,6 +5,12 @@ name: Java CI with Maven
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: The version of the Docker image to use.
+        type: string
+        required: true
+        default: 1.0.0
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -17,15 +23,20 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: 8
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 8
+      - name: Set up JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v3
         with:
-          java-version: '8'
-          distribution: 'adopt'
+          java-version: ${{ matrix.java-version }}
+          distribution: adopt
           cache: maven
 
       - name: Build with Maven
@@ -92,7 +103,7 @@ jobs:
           flavor: |
             latest=auto
           tags: |
-            type=semver,pattern={{version}},value=1.0.0
+            type=semver,pattern={{version}},value=${{ github.event.inputs.version }}
 
       - name: Build and push Docker image
         id: build-and-push
