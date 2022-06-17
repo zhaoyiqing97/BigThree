@@ -5,6 +5,12 @@ name: Node.js CI
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: The version of the Docker image to use.
+        type: string
+        required: true
+        default: 1.0.0
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -22,7 +28,6 @@ jobs:
     strategy:
       matrix:
         node-version: [ 14.18 ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +36,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: ${{env.CONTEXT}}/package-lock.json
 
       - name: build with npm
@@ -43,15 +48,13 @@ jobs:
 
       - name: tar file
         working-directory: ${{env.CONTEXT}}
-        run: |
-          tar -cvf dist.tar dist/
-          mv ./dist.tar ../          
+        run: tar -cvf dist.tar dist/
 
       - name: upload-artifact
         uses: actions/upload-artifact@v3
         with:
           name: dist-file
-          path: dist.tar
+          path: ${{env.CONTEXT}}/dist.tar
           retention-days: 1
           if-no-files-found: error
 
