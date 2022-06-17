@@ -9,9 +9,8 @@ export default new VueRouter({
             redirect: '/index'
         },
         {
-            path: '/index/:msg',
+            path: '/index',
             component: index,
-            props: true
         },
     ]
 })
