@@ -1,15 +1,16 @@
 <template>
   <div class="top">
-    <p class="text-left title py-1">近一月回答榜 - TOP 12</p>
-    <div class=" grid grid-cols-3">
+    <p class="text-left title py-1 pl-3">近一月回答榜 - TOP 12</p>
+    <div class=" grid grid-cols-4 gap-4 p-4 user-grid">
       <div v-for="(item,index) in topList"
            :key="index">
-        <div :style="{backgroundImage:'url('+item.img+')'}"
-             class="text-black  align-bottom text-center"
-             style="width: 65px;height: 65px;">
-          {{ item.name }}
-        </div>
-        <i class="user-comment">{{ item.commentNum }}次回答</i>
+        <img
+            alt=""
+            height="100%"
+            src="../assets/default.png"
+            width="100%">
+        <div class="user-name">{{ item.name }}</div>
+        <span class="user-comment">{{ item.commentNum }}次回答</span>
       </div>
     </div>
   </div>
@@ -94,5 +95,24 @@ export default {
 
 .title {
   background-color: #f8f8f8;
+}
+
+.user-grid {
+  background: white;
+}
+
+.user-name {
+  position: relative;
+  top: -20px;
+
+  width: 100%;
+  color: white;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, .2);
 }
 </style>

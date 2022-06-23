@@ -7,6 +7,7 @@
       <el-main class="mx-80">
         <router-view></router-view>
       </el-main>
+      <el-divider></el-divider>
       <el-footer>
         <fly-footer></fly-footer>
       </el-footer>
