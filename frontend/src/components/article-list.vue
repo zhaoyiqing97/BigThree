@@ -4,7 +4,8 @@
       <ul class="divide-y"
           style="overflow:auto">
         <li v-for="(item,index) in topList"
-            :key="index">
+            :key="index"
+            class="p-1">
           <article-item :item="item"></article-item>
         </li>
       </ul>
@@ -14,7 +15,8 @@
           class="infinite-list divide-y"
           style="overflow:auto">
         <li v-for="(item,index) in articleList"
-            :key="index">
+            :key="index"
+            class="p-1">
           <article-item :item="item"></article-item>
         </li>
       </ul>
@@ -41,7 +43,7 @@ export default {
           "commentNum": 0,
           "payKiss": 0,
           "cream": 0,
-          "stick": 0,
+          "stick": 1,
           "isDone": 0,
           "markdownContent": "String",
           "htmlContent": "String"
@@ -54,8 +56,8 @@ export default {
           "visitNum": 0,
           "commentNum": 0,
           "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
+          "cream": 1,
+          "stick": 1,
           "isDone": 0,
           "markdownContent": "String",
           "htmlContent": "String"
@@ -81,6 +83,90 @@ export default {
           "id": 1,
           "title": "String",
           "authorName": "authorName",
+          "releaseTime": "2022-06-17 09:11:46",
+          "visitNum": 0,
+          "commentNum": 0,
+          "payKiss": 0,
+          "cream": 1,
+          "stick": 0,
+          "isDone": 0,
+          "markdownContent": "String",
+          "htmlContent": "String"
+        },
+        {
+          "id": 1,
+          "title": "String",
+          "authorName": "authorName",
+          "releaseTime": "2022-06-17 09:11:46",
+          "visitNum": 0,
+          "commentNum": 0,
+          "payKiss": 0,
+          "cream": 1,
+          "stick": 0,
+          "isDone": 0,
+          "markdownContent": "String",
+          "htmlContent": "String"
+        },
+        {
+          "id": 1,
+          "title": "String",
+          "authorName": 0,
+          "releaseTime": "2022-06-17 09:11:46",
+          "visitNum": 0,
+          "commentNum": 0,
+          "payKiss": 0,
+          "cream": 0,
+          "stick": 0,
+          "isDone": 0,
+          "markdownContent": "String",
+          "htmlContent": "String"
+        },
+        {
+          "id": 1,
+          "title": "String",
+          "authorName": 0,
+          "releaseTime": "2022-06-17 09:11:46",
+          "visitNum": 0,
+          "commentNum": 0,
+          "payKiss": 0,
+          "cream": 0,
+          "stick": 0,
+          "isDone": 0,
+          "markdownContent": "String",
+          "htmlContent": "String"
+        },
+        {
+          "id": 1,
+          "title": "String",
+          "authorName": 0,
+          "releaseTime": "2022-06-17 09:11:46",
+          "visitNum": 0,
+          "commentNum": 0,
+          "payKiss": 0,
+          "cream": 0,
+          "stick": 0,
+          "isDone": 0,
+          "markdownContent": "String",
+          "htmlContent": "String"
+        },
+        {
+          "id": 1,
+          "title": "String",
+          "authorName": 0,
+          "releaseTime": "2022-06-17 09:11:46",
+          "visitNum": 0,
+          "commentNum": 0,
+          "payKiss": 0,
+          "cream": 0,
+          "stick": 0,
+          "isDone": 0,
+          "markdownContent": "String",
+          "htmlContent": "String"
+        },
+        {
+          "id": 1,
+          "title": "String",
+          "authorName": 0,
           "releaseTime": "2022-06-17 09:11:46",
           "visitNum": 0,
           "commentNum": 0,

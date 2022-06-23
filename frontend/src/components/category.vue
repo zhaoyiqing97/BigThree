@@ -11,7 +11,11 @@
         </el-button-group>
       </div>
       <div>
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="input"
+                  placeholder="请输入内容">+
+          <el-button slot="append"
+                     icon="el-icon-search"></el-button>
+        </el-input>
       </div>
       <div>
         <el-button type="success">发布问题</el-button>
