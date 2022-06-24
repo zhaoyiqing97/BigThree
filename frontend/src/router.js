@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
 import index from '@/components/index.vue'
+import writeArticle from '@/components/write-article'
 
 export default new VueRouter({
     mode: 'history', // require service support
@@ -11,6 +12,11 @@ export default new VueRouter({
         {
             path: '/index',
             component: index,
+        },
+        {
+            path: '/write/:id',
+            component: writeArticle,
+            props: true
         },
     ]
 })
