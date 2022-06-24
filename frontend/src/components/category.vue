@@ -18,7 +18,9 @@
         </el-input>
       </div>
       <div>
-        <el-button type="success">发布问题</el-button>
+        <el-button type="success"
+                   @click="writeArticle">发布问题
+        </el-button>
       </div>
     </div>
 
@@ -31,6 +33,11 @@ export default {
   data: () => {
     return {
       input: ''
+    }
+  },
+  methods: {
+    writeArticle() {
+      this.$router.push(`/write/${null}`);
     }
   }
 }
