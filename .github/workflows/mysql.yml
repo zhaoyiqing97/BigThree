@@ -18,7 +18,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: big_three/mysql
   USER_NAME: zhaoyiqing97
-  CONTEXT: opt/build/mysql
+  CONTEXT: ops/build/mysql
 
 jobs:
 
