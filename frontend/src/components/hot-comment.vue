@@ -1,6 +1,6 @@
 <template>
   <div class="hot-comment">
-    <p class="text-left title py-1 pl-3">近期热议</p>
+    <p class="text-left title py-1 pl-3">most comment</p>
     <div class="p-2">
       <div v-for="(item,index) in hotList"
            :key="index">

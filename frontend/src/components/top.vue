@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <p class="text-left title py-1 pl-3">近一月回答榜 - TOP 12</p>
+    <p class="text-left title py-1 pl-3">month most answer</p>
     <div class=" grid grid-cols-4 gap-4 p-4 user-grid">
       <div v-for="(item,index) in topList"
            :key="index">
@@ -8,9 +8,10 @@
             alt=""
             height="100%"
             src="../assets/default.png"
+            style="image-rendering: pixelated;"
             width="100%">
         <div class="user-name">{{ item.name }}</div>
-        <span class="user-comment">{{ item.commentNum }}次回答</span>
+        <span class="user-comment">{{ item.commentNum }}</span>
       </div>
     </div>
   </div>
@@ -29,7 +30,7 @@ export default {
         },
         {
           name: "纸飞机",
-          commentNum: 159,
+          commentNum: 234,
           img: '../assets/default.png'
         },
         {

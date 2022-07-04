@@ -8,9 +8,9 @@
           <div>
             <h2 class="text-left">{{ item.title }}
               <span v-if="item.stick ===1"
-                    class="fly-tip stick">置顶</span>
+                    class="fly-tip stick">top</span>
               <span v-if="item.cream===1"
-                    class="fly-tip jing">精帖</span>
+                    class="fly-tip jing">cream</span>
             </h2>
           </div>
           <div>
@@ -21,21 +21,11 @@
           </div>
         </div>
       </div>
-      <div class="flex">
-        <div class="flex">
-          <img alt=""
-               height="20"
-               src="../assets/comment.svg"
-               width="20">
-          <span>{{ item.commentNum }}</span>
-        </div>
-        <div class="flex">
-          <img alt=""
-               height="20"
-               src="../assets/views.svg"
-               width="20">
-          <span>{{ item.visitNum }}</span>
-        </div>
+      <div class="flex items-center">
+        <i class="nes-icon coin is-small"></i>
+        <span class="mx-1">{{ item.commentNum }}</span>
+        <i class="nes-icon like is-small"></i>
+        <span class="mx-1">{{ item.visitNum }}</span>
       </div>
     </div>
   </div>

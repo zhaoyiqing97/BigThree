@@ -1,43 +1,59 @@
 <template>
   <div class="write-article p-5 flex flex-col">
-    <p class="text-left title py-1 pl-3">发表问题</p>
+    <p class="text-left title py-1 pl-3 nes-text is-primary">Ask Question</p>
     <p class="text-left py-3">
-      <el-input>
-        <template slot="prepend">标题</template>
-      </el-input>
+      <label for="title">title</label>
+      <input id="title"
+             class="nes-input">
     </p>
     <div class="border-solid"
          style="min-height: 50vh">
       <vue-editor v-model="editorData"/>
     </div>
-    <div class="flex">
+    <div class="w-1/3 flex justify-between">
       <div>
-        <span>所在类别</span>
-        <el-select v-model="categoryValue"
-                   placeholder="请选择">
-          <el-option
-              v-for="item in categoryOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
+        <label for="cate_select">category</label>
+        <div class="nes-select">
+          <select id="cate_select"
+                  required>
+            <option disabled
+                    hidden
+                    selected
+                    value="">Select...
+            </option>
+            <option v-for="item in categoryOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </option>
+          </select>
+        </div>
       </div>
       <div>
-        <label>悬赏飞吻</label>
-        <el-select v-model="payValue"
-                   placeholder="请选择">
-          <el-option
-              v-for="item in payOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
+        <label for="pay_select">pay</label>
+        <div class="nes-select">
+          <select id="pay_select"
+                  v-model="payValue">
+            <option disabled
+                    hidden
+                    selected
+                    value="">Select...
+            </option>
+            <option
+                v-for="item in payOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="flex">
-      <el-button type="success">立即发布</el-button>
+      <button class="nes-btn is-success is-large"
+              type="button"
+              @click="publishNow()">Publish Now
+      </button>
     </div>
   </div>
 </template>
@@ -94,11 +110,18 @@ export default {
   methods: {
     onEditorInput(input) {
       console.log(input);
+    },
+    publishNow() {
+      console.log({
+        editorData: this.editorData,
+        categoryValue: this.categoryValue,
+        payValue: this.payValue
+      })
     }
   },
   created() {
     if (this.id) {
-      console.log(this.id, 'this.id');
+      console.log(this.id, 'this.id',);
     }
   }
 
