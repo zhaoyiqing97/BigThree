@@ -1,6 +1,6 @@
 <template>
   <div class="hot-view">
-    <p class="text-left title py-1 pl-3">最近热帖</p>
+    <p class="text-left title py-1 pl-3">most popular</p>
     <div class="p-2">
       <div v-for="(item,index) in hotList"
            :key="index">

@@ -1,40 +1,34 @@
 <template>
   <div class="fly-header">
     <div class="h-16 bg-gray-800 flex justify-between">
-      <div class="h-full ml-80 flex align-center">
-        <img alt=""
-             height="50"
-             src="../assets/logo.png"
-             width="200">
+      <div id="rY"
+           class="h-full ml-80 p-1"
+           @click="goIndex()">
+        <i class="nes-icon is-medium heart"></i>
       </div>
       <div class="h-full flex justify-around items-end">
         <div class="h-full flex items-center">
-          <img alt=""
-               class="mx-2"
-               height="30"
-               src="../assets/question.svg"
-               width="30">
+          <i class="nes-icon trophy is-medium"></i>
           <a class="text-white"
-             href="#">问答</a>
+             href="#">Q&A</a>
         </div>
         <div class="h-full flex items-center">
-          <img alt=""
-               class="mx-2"
-               height="30"
-               src="../assets/vip.svg"
-               width="30">
+          <i class="nes-icon coin is-medium"></i>
           <a class="text-white"
-             href="#">会员</a>
+             href="#">VIP</a>
         </div>
       </div>
       <div class="h-full mr-80 flex justify-center items-center">
         <div class="mx-1">
-          <el-avatar icon="el-icon-user-solid"></el-avatar>
+          <img alt=""
+               class="nes-avatar"
+               style="image-rendering: pixelated;"
+               src="../assets/default.png">
         </div>
-        <div class="text-white mx-1">登入</div>
-        <div class="text-white mx-1">注册</div>
-        <div class="mx-1"><img alt="" height="30" src="../assets/qq.svg" width="30"></div>
-        <div class="mx-1"><img alt="" height="30" src="../assets/weibo.svg" width="30"></div>
+        <el-button class="text-white mx-1 nes-btn is-primary">login</el-button>
+        <el-button class="text-white mx-1 nes-btn is-success">register</el-button>
+        <i class="nes-icon twitter is-medium mx-2"></i>
+        <i class="nes-icon facebook is-medium mx-2"></i>
       </div>
     </div>
   </div>
@@ -42,9 +36,36 @@
 
 <script>
 export default {
-  name: "fly-header"
+  name: "fly-header",
+  methods: {
+    goIndex() {
+      this.$router.push(`/index`);
+    }
+  }
 }
 </script>
 
 <style scoped>
+@keyframes turnY {
+
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+
+}
+
+
+#rY:hover {
+
+  animation-name: turnY;
+
+  animation-duration: 3s;
+
+  animation-iteration-count: 1;
+
+}
 </style>
