@@ -33,17 +33,23 @@ docker-compose up -d
 
 ```mermaid
 sequenceDiagram
+      autonumber
       actor zyq
       participant github
       participant ghcr.io      
       participant server
       zyq->>github: push code
-      activate github
-      github->>ghcr.io: build and push images
-      deactivate github
-      zyq->>server: update
+      loop Every image
+        activate github
+        github->>github: build images
+        github->>ghcr.io: push images
+        deactivate github
+      end
+      zyq->>server: update command
       server->>ghcr.io: pull newest images
-      server-->>server: update Containers
+      loop Every Containers
+        server-->>server: update Containers
+      end
 ```
 
 ## 版本内容更新
