@@ -7,7 +7,7 @@
         <img
             alt=""
             height="100%"
-            src="../assets/default.png"
+            src="../assets/default.jpeg"
             style="image-rendering: pixelated;"
             width="100%">
         <div class="user-name">{{ item.name }}</div>
@@ -26,62 +26,62 @@ export default {
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 234,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         },
         {
           name: "纸飞机",
           commentNum: 159,
-          img: '../assets/default.png'
+          img: '../assets/default.jpeg'
         }
       ]
     }

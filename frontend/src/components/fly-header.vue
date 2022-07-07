@@ -23,7 +23,7 @@
           <img alt=""
                class="nes-avatar"
                style="image-rendering: pixelated;"
-               src="../assets/default.png">
+               src="../assets/default.jpeg">
         </div>
         <el-button class="text-white mx-1 nes-btn is-primary">login</el-button>
         <el-button class="text-white mx-1 nes-btn is-success">register</el-button>

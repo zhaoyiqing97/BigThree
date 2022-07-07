@@ -29,4 +29,21 @@ docker-compose up -d
     - node.js.yml: Build and push Docker image
     - codeql-analysis.yml: 代码检查
 
+## 流程
+
+```mermaid
+sequenceDiagram
+      actor zyq
+      participant github
+      participant ghcr.io      
+      participant server
+      zyq->>github: push code
+      activate github
+      github->>ghcr.io: build and push images
+      deactivate github
+      zyq->>server: update
+      server->>ghcr.io: pull newest images
+      server-->>server: update Containers
+```
+
 ## 版本内容更新

@@ -10,6 +10,7 @@
             <img alt=""
                  height="20"
                  src="../assets/comment.svg"
+                 style="image-rendering: pixelated;-ms-interpolation-mode: nearest-neighbor;"
                  width="20">
             <span>{{ item.commentNum }}</span>
           </div>
