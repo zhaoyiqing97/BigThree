@@ -10,46 +10,40 @@
          style="min-height: 50vh">
       <vue-editor v-model="editorData"/>
     </div>
-    <div class="w-1/3 flex justify-between">
-      <div>
-        <label for="cate_select">category</label>
-        <div class="nes-select">
-          <select id="cate_select"
-                  required>
-            <option disabled
-                    hidden
-                    selected
-                    value="">Select...
-            </option>
-            <option v-for="item in categoryOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-            </option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <label for="pay_select">pay</label>
-        <div class="nes-select">
-          <select id="pay_select"
-                  v-model="payValue">
-            <option disabled
-                    hidden
-                    selected
-                    value="">Select...
-            </option>
-            <option
-                v-for="item in payOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </option>
-          </select>
-        </div>
+    <p>category</p>
+    <div class="flex justify-center my-5">
+      <div v-for="item in categoryOptions"
+           :key="item.value">
+        <label>
+          <input v-model="categoryValue"
+                 :value="item.value"
+                 class="nes-radio"
+                 name="cate_select"
+                 type="radio"/>
+          <span>{{ item.label }}</span>
+        </label>
       </div>
     </div>
-    <div class="flex">
+    <div class="my-5">
+      <label for="pay_select">pay</label>
+      <div class="nes-select">
+        <select id="pay_select"
+                v-model="payValue">
+          <option disabled
+                  hidden
+                  selected
+                  value="">Select...
+          </option>
+          <option
+              v-for="item in payOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="flex my-5">
       <button class="nes-btn is-success is-large"
               type="button"
               @click="publishNow()">Publish Now
