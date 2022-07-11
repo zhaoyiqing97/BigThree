@@ -1,7 +1,7 @@
-GET http://127.0.0.1:8081/list
+GET http://127.0.0.1:8080/list
 
 ###
-GET http://127.0.0.1:8081/actuator
+GET http://127.0.0.1:8080/actuator
 
 ###
-GET http://127.0.0.1:8081/actuator/health
+GET http://127.0.0.1:8080/actuator/health
