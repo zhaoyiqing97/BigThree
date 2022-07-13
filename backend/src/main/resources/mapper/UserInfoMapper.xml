@@ -37,4 +37,9 @@
         reg_time,state,create_time,
         create_user,update_time,update_user
     </sql>
+
+    <!--根据用户名查询用户-->
+    <select id="selectByUserName" resultMap="BaseResultMap">
+        select * from user_info where nickName = #{userName};
+    </select>
 </mapper>
