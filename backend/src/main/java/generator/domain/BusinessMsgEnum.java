@@ -16,7 +16,7 @@ public enum BusinessMsgEnum {
     // 还可以定义更多的业务异常
 
     /**
-     * 消息码s
+     * 消息码
      */
     private String code;
     /**
