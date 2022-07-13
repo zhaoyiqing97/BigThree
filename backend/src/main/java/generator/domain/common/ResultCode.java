@@ -12,7 +12,7 @@ public enum ResultCode {
     PARAM_INVALID(402, "参数输入错误"),
 
     //失败
-    UNKNOWN_ERROR(500, "未知错误");;
+    UNKNOWN_ERROR(500, "未知错误");
 
     private int code;
     private String message;

@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //提供用户信息，这里没有从数据库查询用户信息，在内存中模拟
+    /**提供用户信息，这里没有从数据库查询用户信息，在内存中模拟 */
     @Bean
     public UserDetailsService userDetailsService(){
         //获取用户账号密码及权限信息
