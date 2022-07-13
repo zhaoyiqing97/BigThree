@@ -1,7 +1,8 @@
 package generator.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import generator.domain.UserInfo;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,4 +25,11 @@ public class Controller {
   public List<ArticleType> test() {
     return articleTypeService.selectAll();
   }
+
+  /** 登录成功后重定向地址 */
+  @RequestMapping("/loginSuccess")
+  public String loginSuccess(){
+    return "登录成功";
+  }
+
 }
