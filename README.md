@@ -6,16 +6,39 @@
 - mysql:8.0.28
 - node:14.18
 
-## 部署步骤
+## docker 部署
+
+### 部署
 
 ```shell
 cd ops
-docker-compose up -d
+docker compose up -d
 ```
+
+### 更新
+
+```shell
+docker compose pull
+docker up -d
+```
+
+### 清理
+
+```shell
+docker compose down -v --rmi all
+```
+
+## todo k8s 部署
 
 ## 目录结构描述
 
 - ops: 存放所有的部署相关的文件
+  - build
+    - mysql
+      - sql 预执行sql
+      - Dockerfile mysql images build 
+    - frontend nginx config backup
+  - docker-compose.yml docker compose 部署文件
 - test: 存放所有的测试文件 测试的http文件
 - backend: 存放所有的后端相关的文件
     - main: 存放所有的后端主要文件
