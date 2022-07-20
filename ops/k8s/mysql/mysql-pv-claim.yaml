@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+  creationTimestamp: "2022-07-20T02:58:21Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  name: mysql-pv-claim
+  namespace: default
+  resourceVersion: "56535"
+  selfLink: /api/v1/namespaces/default/persistentvolumeclaims/mysql-pv-claim
+  uid: afcf08f1-33c1-466b-b30f-c4574ecfd52f
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: manual
+  volumeMode: Filesystem
+  volumeName: mysql-pv-volume
+status:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 20Gi
+  phase: Bound
