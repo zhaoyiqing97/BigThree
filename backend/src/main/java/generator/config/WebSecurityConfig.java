@@ -1,5 +1,6 @@
 package generator.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,7 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
+import generator.filter.BigThreeFilter;
 import generator.service.impl.UserDetailsServiceImpl;
 
 /**
@@ -19,6 +23,8 @@ import generator.service.impl.UserDetailsServiceImpl;
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+  @Autowired private BigThreeFilter bigThreeFilter;
 
   /** 提供用户信息，这里没有从数据库查询用户信息，在内存中模拟 */
   @Override
@@ -50,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 授权配置
     http.authorizeRequests()
         // 登录路径放行
-        .antMatchers("/login")
+        .antMatchers("/login", "/list")
         .permitAll()
         .anyRequest()
         .authenticated()
@@ -65,5 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .csrf()
         .disable();
+    http.addFilterAfter(bigThreeFilter, SecurityContextPersistenceFilter.class);
   }
 }
