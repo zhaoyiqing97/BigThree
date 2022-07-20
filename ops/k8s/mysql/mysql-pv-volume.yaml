@@ -3,15 +3,11 @@ kind: PersistentVolume
 metadata:
   annotations:
     pv.kubernetes.io/bound-by-controller: "yes"
-  creationTimestamp: "2022-07-20T03:01:09Z"
   finalizers:
   - kubernetes.io/pv-protection
   labels:
     type: local
   name: mysql-pv-volume
-  resourceVersion: "56533"
-  selfLink: /api/v1/persistentvolumes/mysql-pv-volume
-  uid: 88de1691-3a0c-485a-97a1-23b16c01e694
 spec:
   accessModes:
   - ReadWriteOnce
@@ -30,5 +26,3 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
   volumeMode: Filesystem
-status:
-  phase: Bound

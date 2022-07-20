@@ -1,13 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  creationTimestamp: "2022-07-20T03:05:16Z"
-  generation: 1
   name: mysql
   namespace: default
-  resourceVersion: "57177"
-  selfLink: /apis/apps/v1/namespaces/default/statefulsets/mysql
-  uid: a1e0d8af-d7de-472e-8250-45aa12e84e5c
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
@@ -18,7 +13,6 @@ spec:
   serviceName: ""
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: mysql
     spec:
@@ -52,12 +46,3 @@ spec:
     rollingUpdate:
       partition: 0
     type: RollingUpdate
-status:
-  collisionCount: 0
-  currentReplicas: 1
-  currentRevision: mysql-5589b79d86
-  observedGeneration: 1
-  readyReplicas: 1
-  replicas: 1
-  updateRevision: mysql-5589b79d86
-  updatedReplicas: 1

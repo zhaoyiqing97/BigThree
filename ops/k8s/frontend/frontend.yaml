@@ -4,13 +4,8 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
     field.cattle.io/publicEndpoints: '[{"addresses":["192.168.154.132"],"port":30080,"protocol":"TCP","serviceName":"default:frontend-nodeport","allNodes":true}]'
-  creationTimestamp: "2022-07-20T07:17:35Z"
-  generation: 2
   name: frontend
   namespace: default
-  resourceVersion: "93029"
-  selfLink: /apis/apps/v1/namespaces/default/deployments/frontend
-  uid: ee3eb575-864d-4ef6-93a3-d9de0d4cc32a
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -25,7 +20,6 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: apps.deployment-default-frontend
     spec:
@@ -46,22 +40,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2022-07-20T07:17:38Z"
-    lastUpdateTime: "2022-07-20T07:17:38Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2022-07-20T07:17:35Z"
-    lastUpdateTime: "2022-07-20T07:17:38Z"
-    message: ReplicaSet "frontend-89447d677" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 2
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
