@@ -8,11 +8,14 @@ import java.util.List;
 
 import generator.domain.ArticleType;
 import generator.service.ArticleTypeService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 
 /**
  * @author zhaoyiqing
  */
 @RestController
+@Slf4j
 public class Controller {
 
   private final ArticleTypeService articleTypeService;
@@ -23,7 +26,9 @@ public class Controller {
 
   @GetMapping("/list")
   public List<ArticleType> list() {
-    return articleTypeService.selectAll();
+    val res = articleTypeService.selectAll();
+    log.info("list res [{}]", res);
+    return res;
   }
 
   /** 登录成功后重定向地址 */
