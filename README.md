@@ -13,7 +13,7 @@
 ### 部署
 
 ```shell
-cd ops/docker
+cd ops/docker/prod
 docker compose up -d
 ```
 
@@ -21,7 +21,7 @@ docker compose up -d
 
 ```shell
 docker compose pull
-docker up -d
+docker compose up -d
 ```
 
 ### 清理
@@ -61,7 +61,7 @@ docker compose down -v --rmi all
 - .github/workflows: 存放所有的github actions相关的文件
     - maven.yml: Build and push Docker image
     - node.js.yml: Build and push Docker image
-    - mysql.yml： build mysql 
+    - mysql.yml： build mysql
     - codeql-analysis.yml: 代码检查
 
 ---

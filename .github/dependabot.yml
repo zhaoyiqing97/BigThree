@@ -10,4 +10,5 @@ updates:
     schedule:
       interval: "daily"
     ignore:
-      - dependency-type: "development"
+      - dependency-name: "npm"
+        dependency-type: "development"
