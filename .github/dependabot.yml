@@ -9,6 +9,6 @@ updates:
     directory: "/frontend" # Location of package manifests
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "npm"
-        dependency-type: "development"
+    allow:
+      - dependency-name: "*"
+        dependency-type: "production"
