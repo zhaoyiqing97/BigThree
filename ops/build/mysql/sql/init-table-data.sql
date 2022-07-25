@@ -1,3 +1,4 @@
+/*!40101 SET NAMES utf8mb4 */;
 USE big_three;
 -- ----------------------------
 -- Records of articletype
