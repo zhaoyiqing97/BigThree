@@ -13,7 +13,8 @@
       <div>
         <el-button class="nes-btn is-success"
                    type="success"
-                   @click="writeArticle">Ask Question</el-button>
+                   @click="writeArticle">Ask Question
+        </el-button>
       </div>
     </div>
     <div class="flex">
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     writeArticle() {
-      this.$router.push(`/write/${null}`);
+      this.$router.push(`/write`);
     }
   }
 }

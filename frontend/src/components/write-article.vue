@@ -115,14 +115,18 @@ export default {
     }
   },
   async created() {
-    const response = await axios.get('/backend/list');
-    const data = response.data
-    console.log(data);
-    this.categoryOptions = data.map(it => {
-      return {label: it.typename, value: it.id}
-    })
     if (this.id) {
-      console.log(this.id, 'this.id',);
+      console.log(this.id, 'this.id');
+    }
+    try {
+      const response = await axios.get('/backend/list');
+      const data = response.data
+      console.log(data);
+      this.categoryOptions = data.map(it => {
+        return {label: it.typename, value: it.id}
+      })
+    } catch (e) {
+      console.error(e);
     }
   }
 
