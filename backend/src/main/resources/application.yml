@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: big-three
+  profiles:
+    active: dev
+server:
+  port: 8080
+  servlet:
+    context-path: /backend
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always

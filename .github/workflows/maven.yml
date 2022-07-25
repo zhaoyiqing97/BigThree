@@ -1,0 +1,124 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The version of the Docker image to use.
+        type: string
+        required: true
+        default: 1.0.0
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: big_three/backend
+  USER_NAME: zhaoyiqing97
+  CONTEXT: backend
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [8]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: adopt
+          cache: maven
+
+      - name: Build with Maven
+        run: |
+          mvn -v
+          mvn clean install --file backend/pom.xml
+          mkdir ${{env.CONTEXT}}/target/extracted
+          java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted
+
+      - name: tar file
+        working-directory: ${{env.CONTEXT}}
+        run: tar -cvf target.tar target/
+
+      - name: upload-artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: target-file
+          path: ${{env.CONTEXT}}/target.tar
+          retention-days: 1
+          if-no-files-found: error
+
+  docker:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v2.4.0
+
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: image=moby/buildkit:buildx-stable-1
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.USER_NAME }}
+          password: ${{ secrets.GITHUB_TOKEN  }}
+
+      - name: download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: target-file
+
+      - name: tar file
+        run: |
+          mkdir ${{env.CONTEXT}}/target
+          tar -xvf target.tar -C ${{env.CONTEXT}}/
+          ls ${{env.CONTEXT}}/target
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=auto
+          tags: |
+            type=semver,pattern={{version}},value=${{ github.event.inputs.version }}
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{env.CONTEXT}}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Sign the published Docker image
+        env:
+          COSIGN_EXPERIMENTAL: 1
+        run: cosign sign ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.build-and-push.outputs.tags }}
+
+
