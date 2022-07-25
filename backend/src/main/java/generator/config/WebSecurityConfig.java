@@ -1,20 +1,22 @@
 package generator.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.google.common.collect.Lists;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import generator.filter.BigThreeFilter;
 import generator.service.impl.UserDetailsServiceImpl;
+import lombok.val;
 
 /**
  * Security 登录配置
@@ -24,7 +26,14 @@ import generator.service.impl.UserDetailsServiceImpl;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired private BigThreeFilter bigThreeFilter;
+  private final BigThreeFilter bigThreeFilter;
+
+  private final ProjectSetting projectSetting;
+
+  public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting) {
+    this.bigThreeFilter = bigThreeFilter;
+    this.projectSetting = projectSetting;
+  }
 
   /** 提供用户信息，这里没有从数据库查询用户信息，在内存中模拟 */
   @Override
@@ -37,12 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  }
-
-  /** 忽略掉的 URL 地址 访问静态文件 */
-  @Override
-  public void configure(WebSecurity web) {
-    web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
   }
 
   @Override
@@ -67,10 +70,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .successForwardUrl("/loginSuccess")
         //                .successHandler()//指定登录成功的处理逻辑类
         //                .failureHandler()//指定登录失败的处理逻辑类
-        .permitAll()
-        .and()
-        .csrf()
-        .disable();
+        .permitAll();
+
+    // 本地跨域
+    if (projectSetting.getCorsMappings() != null) {
+      val corsConf = new CorsConfiguration();
+      corsConf.setAllowedOrigins(Lists.newArrayList(projectSetting.getCorsMappings()));
+      corsConf.setAllowedMethods(Lists.newArrayList("*"));
+      val source = new UrlBasedCorsConfigurationSource();
+      source.registerCorsConfiguration("/**", corsConf);
+      http.cors().configurationSource(source);
+    }
+
+    // 时间过滤器
     http.addFilterAfter(bigThreeFilter, SecurityContextPersistenceFilter.class);
   }
 }

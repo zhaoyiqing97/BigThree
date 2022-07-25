@@ -18,5 +18,9 @@ export default new VueRouter({
             component: writeArticle,
             props: true
         },
+        {
+            path: '/write',
+            component: writeArticle
+        },
     ]
 })
