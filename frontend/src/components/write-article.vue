@@ -54,6 +54,7 @@
 <script>
 import {VueEditor} from "vue2-editor";
 
+const axios = require('axios');
 export default {
   name: "write-article",
   props: ['id'],
@@ -113,7 +114,13 @@ export default {
       })
     }
   },
-  created() {
+  async created() {
+    const response = await axios.get('/backend/list');
+    const data = response.data
+    console.log(data);
+    this.categoryOptions = data.map(it => {
+      return {label: it.typename, value: it.id}
+    })
     if (this.id) {
       console.log(this.id, 'this.id',);
     }

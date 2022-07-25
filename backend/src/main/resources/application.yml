@@ -5,6 +5,8 @@ spring:
     active: dev
 server:
   port: 8080
+  servlet:
+    context-path: /backend
 management:
   endpoints:
     web:
