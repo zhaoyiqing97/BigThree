@@ -19,4 +19,11 @@ class ApplicationTest {
     val b = list.stream().anyMatch(s -> s.equals(str));
     assertEquals(list.contains(str), b);
   }
+
+  @Test
+  void strInsert() {
+    val dateStr = "202207";
+    val insert = new StringBuilder(dateStr).insert(4, "-");
+    assertEquals(insert.toString(), "2022-07");
+  }
 }
