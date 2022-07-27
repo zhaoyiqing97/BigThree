@@ -8,7 +8,7 @@ module.exports = {
         /* 使用代理 */
         proxy: {
             '^/backend/': {
-                target: 'http://127.0.0.1:7070',//后台服务器地址
+                target: 'http://127.0.0.1:8080',//后台服务器地址
                 changeOrigin: true, /* 允许跨域 */
             }
         },
