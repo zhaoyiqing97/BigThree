@@ -8,6 +8,7 @@ import java.util.List;
 
 import generator.domain.ArticleType;
 import generator.service.ArticleTypeService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
@@ -16,13 +17,10 @@ import lombok.val;
  */
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class Controller {
 
   private final ArticleTypeService articleTypeService;
-
-  public Controller(ArticleTypeService articleTypeService) {
-    this.articleTypeService = articleTypeService;
-  }
 
   @GetMapping("/list")
   public List<ArticleType> list() {
