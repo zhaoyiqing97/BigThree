@@ -10,10 +10,19 @@
 
 ## docker 部署
 
-### 部署
+### prod-部署
 
 ```shell
 cd ops/docker/prod
+docker compose up -d
+```
+
+### dev-部署
+
+```shell
+cd ops/docker/dev
+build-backend.sh
+build-frontend.sh
 docker compose up -d
 ```
 
