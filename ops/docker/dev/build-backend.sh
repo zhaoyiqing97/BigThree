@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cd ../../../backend || exit
 mvn clean package
 mkdir target/extracted
