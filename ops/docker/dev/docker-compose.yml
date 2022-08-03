@@ -19,6 +19,8 @@ services:
     build:
       context: ../../../backend
     container_name: dev-backend
+    depends_on:
+      - mysql
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
 
@@ -27,5 +29,7 @@ services:
     build:
       context: ../../../frontend
     container_name: dev-frontend
+    depends_on:
+      - backend
     ports:
       - '8080:80'

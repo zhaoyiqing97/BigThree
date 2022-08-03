@@ -2,6 +2,7 @@ package generator.config;
 
 import com.google.common.collect.Lists;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +16,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import generator.filter.BigThreeFilter;
-import generator.service.impl.UserDetailsServiceImpl;
 import lombok.val;
 
 /**
@@ -30,16 +30,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final ProjectSetting projectSetting;
 
-  public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting) {
+  private final UserDetailsService userDetailsService;
+
+  public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService) {
     this.bigThreeFilter = bigThreeFilter;
     this.projectSetting = projectSetting;
+    this.userDetailsService = userDetailsService;
   }
 
   /** 提供用户信息，这里没有从数据库查询用户信息，在内存中模拟 */
   @Override
   public UserDetailsService userDetailsService() {
     // 获取用户账号密码及权限信息
-    return new UserDetailsServiceImpl();
+    return userDetailsService;
   }
 
   /** 密码编码器：不加密 */
@@ -58,18 +61,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     // 授权配置
     http.authorizeRequests()
-        // 登录路径放行
-        .antMatchers("/login", "/list")
+        .antMatchers("/login", "/list","/actuator/**")
         .permitAll()
         .anyRequest()
         .authenticated()
         .and()
         .formLogin()
-        //                .loginPage("/loginHtml")
         .loginProcessingUrl("/doLogin")
         .successForwardUrl("/loginSuccess")
-        //                .successHandler()//指定登录成功的处理逻辑类
-        //                .failureHandler()//指定登录失败的处理逻辑类
         .permitAll();
 
     // 本地跨域

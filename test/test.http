@@ -1,7 +1,7 @@
 GET http://127.0.0.1:8080/backend/list
 
 ###
-GET http://127.0.0.1:8080/actuator
+GET http://127.0.0.1:8080/backend/actuator
 
 ###
-GET http://127.0.0.1:8080/actuator/health
+GET http://127.0.0.1:8080/backend/actuator/health
