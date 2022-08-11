@@ -3,10 +3,10 @@ package generator.domain.common;
 /**
  * @author WangMingXin
  * @DATE 2022.7.1 七月请对我好一点
- * */
+ */
 public enum ResultCode {
     //成功
-    SUCCESS(200,"成功"),
+    SUCCESS(200, "成功"),
 
     //参数错误
     PARAM_INVALID(402, "参数输入错误"),

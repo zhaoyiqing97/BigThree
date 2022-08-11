@@ -40,6 +40,28 @@
 
     <!--根据用户名查询用户-->
     <select id="selectByUserName" resultMap="BaseResultMap">
-        select * from user_info where nickName = #{userName};
+        SELECT id,
+               email,
+               nickname,
+               password,
+               head_url,
+               city,
+               sex,
+               sign,
+               kiss_num,
+               experience,
+               authority,
+               active,
+               active_code,
+               last_sign,
+               sign_days,
+               reg_time,
+               state,
+               create_time,
+               create_user,
+               update_time,
+               update_user
+        FROM user_info
+        WHERE nickName = #{userName};
     </select>
 </mapper>

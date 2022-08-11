@@ -5,6 +5,7 @@ import generator.domain.BusinessMsgEnum;
 
 /**
  * 自定义业务异常
+ *
  * @author
  */
 public class BusinessErrorException extends RuntimeException {

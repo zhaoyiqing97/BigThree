@@ -26,62 +26,68 @@ import lombok.val;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final BigThreeFilter bigThreeFilter;
+    private final BigThreeFilter bigThreeFilter;
 
-  private final ProjectSetting projectSetting;
+    private final ProjectSetting projectSetting;
 
-  private final UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-  public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService) {
-    this.bigThreeFilter = bigThreeFilter;
-    this.projectSetting = projectSetting;
-    this.userDetailsService = userDetailsService;
-  }
-
-  /** 提供用户信息，这里没有从数据库查询用户信息，在内存中模拟 */
-  @Override
-  public UserDetailsService userDetailsService() {
-    // 获取用户账号密码及权限信息
-    return userDetailsService;
-  }
-
-  /** 密码编码器：不加密 */
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService());
-  }
-
-  /** 授权规则配置 */
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    // 授权配置
-    http.authorizeRequests()
-        .antMatchers("/login", "/list","/actuator/**")
-        .permitAll()
-        .anyRequest()
-        .authenticated()
-        .and()
-        .formLogin()
-        .loginProcessingUrl("/doLogin")
-        .successForwardUrl("/loginSuccess")
-        .permitAll();
-
-    // 本地跨域
-    if (projectSetting.getCorsMappings() != null) {
-      val corsConf = new CorsConfiguration();
-      corsConf.setAllowedOrigins(Lists.newArrayList(projectSetting.getCorsMappings()));
-      corsConf.setAllowedMethods(Lists.newArrayList("*"));
-      val source = new UrlBasedCorsConfigurationSource();
-      source.registerCorsConfiguration("/**", corsConf);
-      http.cors().configurationSource(source);
+    public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService) {
+        this.bigThreeFilter = bigThreeFilter;
+        this.projectSetting = projectSetting;
+        this.userDetailsService = userDetailsService;
     }
 
-    // 时间过滤器
-    http.addFilterAfter(bigThreeFilter, SecurityContextPersistenceFilter.class);
-  }
+    /**
+     * 提供用户信息，这里没有从数据库查询用户信息，在内存中模拟
+     */
+    @Override
+    public UserDetailsService userDetailsService() {
+        // 获取用户账号密码及权限信息
+        return userDetailsService;
+    }
+
+    /**
+     * 密码编码器：不加密
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService());
+    }
+
+    /**
+     * 授权规则配置
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // 授权配置
+        http.authorizeRequests()
+                .antMatchers("/login", "/list", "/actuator/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginProcessingUrl("/doLogin")
+                .successForwardUrl("/loginSuccess")
+                .permitAll();
+
+        // 本地跨域
+        if (projectSetting.getCorsMappings() != null) {
+            val corsConf = new CorsConfiguration();
+            corsConf.setAllowedOrigins(Lists.newArrayList(projectSetting.getCorsMappings()));
+            corsConf.setAllowedMethods(Lists.newArrayList("*"));
+            val source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", corsConf);
+            http.cors().configurationSource(source);
+        }
+
+        // 时间过滤器
+        http.addFilterAfter(bigThreeFilter, SecurityContextPersistenceFilter.class);
+    }
 }

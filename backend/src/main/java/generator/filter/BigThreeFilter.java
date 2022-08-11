@@ -20,13 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BigThreeFilter extends OncePerRequestFilter {
 
-  @Override
-  protected void doFilterInternal(
-      HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
-    String requestUri = request.getRequestURI();
-    long start = System.currentTimeMillis();
-    filterChain.doFilter(request, response);
-    log.info("uri [{}],use [{}]ms", requestUri, (System.currentTimeMillis() - start));
-  }
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String requestUri = request.getRequestURI();
+        long start = System.currentTimeMillis();
+        filterChain.doFilter(request, response);
+        log.info("uri [{}],use [{}]ms", requestUri, (System.currentTimeMillis() - start));
+    }
 }

@@ -1,10 +1,6 @@
 package generator.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-
 import org.springframework.stereotype.Service;
-
-import generator.domain.ArticleInfo;
 
 /**
  * @author HangZ
@@ -12,4 +8,5 @@ import generator.domain.ArticleInfo;
  * @createDate 2022-06-08 09:53:40
  */
 @Service
-public interface ArticleInfoService extends IService<ArticleInfo> {}
+public interface ArticleInfoService {
+}

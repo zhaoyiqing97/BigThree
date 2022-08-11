@@ -2,8 +2,9 @@ package generator.domain;
 
 /**
  * 异常类
+ *
  * @author WangMingXin
- * */
+ */
 public class JsonResult {
     /**
      * 异常码
