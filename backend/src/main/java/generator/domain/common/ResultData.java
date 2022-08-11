@@ -1,17 +1,16 @@
 package generator.domain.common;
 
+import lombok.Data;
+
 /**
  * @author WangMingXin
- * @DATE 2022.7.1
  */
+@Data
 public class ResultData<T> {
 
     private Integer code;
     private String message;
     private T data;
-
-    ResultData() {
-    }
 
     /**
      * 返回成功
@@ -49,29 +48,5 @@ public class ResultData<T> {
         ResultData<T> resultData = ResultData.error();
         resultData.setData(result);
         return resultData;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 }

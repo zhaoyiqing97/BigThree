@@ -9,7 +9,7 @@ public enum ResultCode {
     SUCCESS(200, "成功"),
 
     //参数错误
-    PARAM_INVALID(402, "参数输入错误"),
+    PARAM_INVALID(400, "参数输入错误"),
 
     //失败
     UNKNOWN_ERROR(500, "未知错误");
