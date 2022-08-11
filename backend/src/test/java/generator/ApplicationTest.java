@@ -3,6 +3,7 @@ package generator;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ActiveProfiles("dev")
 class ApplicationTest {
-
 
     @Test
     void finsElement() {
@@ -54,5 +54,13 @@ class ApplicationTest {
         System.out.println("b = " + b);
         System.out.println("c = " + c);
         assertEquals(Lists.newArrayList("1", "2", "3", "4", "42", "43"), c);
+    }
+
+    @Test
+    void testRandomStringUtils() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(RandomStringUtils.random(50));
+            System.out.println(RandomStringUtils.random(50, true, true));
+        }
     }
 }

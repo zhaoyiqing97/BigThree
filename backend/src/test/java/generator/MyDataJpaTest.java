@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import generator.domain.ArticleInfo;
 import generator.repository.ArticleInfoRepository;
@@ -41,15 +43,15 @@ public class MyDataJpaTest {
         for (int i = 0; i < 100; i++) {
             val it = new ArticleInfo();
             it.setId(System.currentTimeMillis());
-            it.setTitle(RandomStringUtils.random(50));
+            it.setTitle(RandomStringUtils.random(50, true, true));
             it.setTypeId(RandomUtils.nextLong(1, 5));
             it.setAuthorId(1L);
             it.setReleaseTime(new Date());
             it.setVisitNum(RandomUtils.nextLong(10, 500));
             it.setCream(RandomUtils.nextInt(10, 500));
             it.setCommentNum(RandomUtils.nextInt(10, 500));
-            it.setMarkdownContent(RandomStringUtils.random(500));
-            it.setHtmlContent(RandomStringUtils.random(5000));
+            it.setMarkdownContent(RandomStringUtils.random(500, true, true));
+            it.setHtmlContent(RandomStringUtils.random(5000, true, true));
             it.setCreateTime(new Date());
             it.setCreateUser(1L);
             it.setIsDone(1);
@@ -60,7 +62,22 @@ public class MyDataJpaTest {
         }
         articleInfoRepository.saveAll(list);
         System.out.println("articleInfoRepository.count() = " + articleInfoRepository.count());
+    }
 
+    @Test
+    void groupByTop5Stream() {
+        val all = articleInfoRepository.findAll();
+        val res = StreamSupport.stream(all.spliterator(), false)
+                .collect(Collectors.groupingBy(ArticleInfo::getTypeId,
+                        Collectors.collectingAndThen(Collectors.toList(), ls -> ls.stream()
+                                .sorted((o1, o2) -> o2.getVisitNum().compareTo(o1.getVisitNum()))
+                                .limit(5)
+                                .collect(Collectors.toList()))
+                ));
+        res.forEach((k, v) -> {
+            System.out.printf("%s\n", k);
+            v.forEach(it -> System.out.printf("%s %s \n", it.getId(), it.getVisitNum()));
+        });
     }
 
 }

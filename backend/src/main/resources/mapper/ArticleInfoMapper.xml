@@ -33,4 +33,27 @@
         html_content,state,create_time,
         create_user,update_time,update_user
     </sql>
+    <select id="groupByTypeTop5" resultType="generator.domain.ArticleInfo">
+        SELECT id,
+               title,
+               author_id,
+               release_time,
+               type_id,
+               visit_num,
+               markdown_content,
+               html_content,
+               rank_num
+        FROM (SELECT id,
+                     title,
+                     author_id,
+                     release_time,
+                     type_id,
+                     visit_num,
+                     markdown_content,
+                     html_content,
+                     ROW_NUMBER() OVER (PARTITION BY type_id ORDER BY visit_num DESC ) AS rank_num
+              FROM article_info) tmp
+        WHERE rank_num <![CDATA[<=]]> 5
+        ORDER BY tmp.type_id, rank_num
+    </select>
 </mapper>
