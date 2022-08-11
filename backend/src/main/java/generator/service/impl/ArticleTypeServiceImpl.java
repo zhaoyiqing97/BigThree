@@ -1,7 +1,5 @@
 package generator.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,17 +14,17 @@ import generator.service.ArticleTypeService;
  * @createDate 2022-06-08 09:28:25
  */
 @Service
-public class ArticleTypeServiceImpl extends ServiceImpl<ArticleTypeMapper, ArticleType>
-    implements ArticleTypeService {
+public class ArticleTypeServiceImpl
+        implements ArticleTypeService {
 
-  private final ArticleTypeMapper articleTypeMapper;
+    private final ArticleTypeMapper articleTypeMapper;
 
-  public ArticleTypeServiceImpl(ArticleTypeMapper articleTypeMapper) {
-    this.articleTypeMapper = articleTypeMapper;
-  }
+    public ArticleTypeServiceImpl(ArticleTypeMapper articleTypeMapper) {
+        this.articleTypeMapper = articleTypeMapper;
+    }
 
-  @Override
-  public List<ArticleType> selectAll() {
-    return articleTypeMapper.selectList(null);
-  }
+    @Override
+    public List<ArticleType> selectAll() {
+        return articleTypeMapper.findAllOrder("id", "desc");
+    }
 }

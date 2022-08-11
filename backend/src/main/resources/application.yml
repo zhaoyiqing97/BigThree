@@ -1,8 +1,13 @@
 spring:
   application:
     name: big-three
-  profiles:
-    active: dev
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
 server:
   port: 8080
   servlet:
@@ -15,3 +20,5 @@ management:
   endpoint:
     health:
       show-details: always
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml

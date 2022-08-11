@@ -1,18 +1,19 @@
 package generator.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import generator.domain.UserInfo;
-import generator.mapper.UserInfoMapper;
-import generator.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+import generator.domain.UserInfo;
+import generator.mapper.UserInfoMapper;
+import generator.service.SysUserService;
+
 /**
- *
  * @author WangMingXin
- * */
+ */
 @Service
-public class SysUserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>  implements SysUserService {
+public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
@@ -23,7 +24,7 @@ public class SysUserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>  i
      * @return
      */
     @Override
-    public UserInfo selectByUserName(String userName) {
-        return userInfoMapper.selectByUserName(userName);
+    public Optional<UserInfo> selectByUserName(String userName) {
+        return Optional.ofNullable(userInfoMapper.selectByUserName(userName));
     }
 }
