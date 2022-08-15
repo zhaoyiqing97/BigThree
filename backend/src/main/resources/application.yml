@@ -1,11 +1,13 @@
 spring:
   application:
     name: big-three
-  config:
-    activate:
-      on-profile: dev
+  profiles:
+    active: dev
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: none
 server:
@@ -22,3 +24,8 @@ management:
       show-details: always
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    root: INFO

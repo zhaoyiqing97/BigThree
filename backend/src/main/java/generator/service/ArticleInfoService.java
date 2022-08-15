@@ -1,6 +1,10 @@
 package generator.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import generator.domain.ArticleInfo;
 
 /**
  * @author HangZ
@@ -9,4 +13,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface ArticleInfoService {
+
+    /**
+     * page article info page
+     *
+     * @param pageable pageable
+     * @return page obj
+     */
+    Page<ArticleInfo> page(Pageable pageable);
 }

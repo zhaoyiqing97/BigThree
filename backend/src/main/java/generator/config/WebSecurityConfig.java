@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 授权配置
         http.authorizeRequests()
-                .antMatchers("/login", "/list", "/actuator/**")
+                .antMatchers("/login", "/no-auth/**", "/actuator/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import generator.domain.ArticleInfo;
 import generator.repository.ArticleInfoRepository;
@@ -67,7 +66,7 @@ public class MyDataJpaTest {
     @Test
     void groupByTop5Stream() {
         val all = articleInfoRepository.findAll();
-        val res = StreamSupport.stream(all.spliterator(), false)
+        val res = all.stream()
                 .collect(Collectors.groupingBy(ArticleInfo::getTypeId,
                         Collectors.collectingAndThen(Collectors.toList(), ls -> ls.stream()
                                 .sorted((o1, o2) -> o2.getVisitNum().compareTo(o1.getVisitNum()))
