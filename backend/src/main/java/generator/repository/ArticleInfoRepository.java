@@ -1,6 +1,6 @@
 package generator.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import generator.domain.ArticleInfo;
@@ -13,5 +13,6 @@ import generator.domain.ArticleInfo;
  * @serial 2022-08-11 : base version.
  */
 @Repository
-public interface ArticleInfoRepository extends CrudRepository<ArticleInfo, Long> {
+public interface ArticleInfoRepository extends JpaRepository<ArticleInfo, Long> {
+
 }

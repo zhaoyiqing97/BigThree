@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import generator.domain.JsonResult;
+import generator.domain.common.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 
 /**
