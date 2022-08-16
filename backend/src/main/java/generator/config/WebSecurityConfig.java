@@ -115,7 +115,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 不使用session
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-
-        http.csrf().disable();
     }
 }
