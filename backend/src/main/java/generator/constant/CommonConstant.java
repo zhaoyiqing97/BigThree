@@ -14,4 +14,5 @@ public interface CommonConstant {
      * 日期-时间格式化-字符串
      */
     String DATE_TIME_FORMATTER_STRING = "yyyy-MM-dd HH:mm:ss";
+    String RESPONSE_CONTENT_TYPE = "application/json;charset=utf-8";
 }

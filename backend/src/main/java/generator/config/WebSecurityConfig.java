@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +19,9 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.io.PrintWriter;
+
+import generator.constant.CommonConstant;
 import generator.domain.common.JsonResult;
 import generator.filter.BigThreeFilter;
 import lombok.val;
@@ -32,8 +34,7 @@ import lombok.val;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     private final BigThreeFilter bigThreeFilter;
 
@@ -41,10 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService) {
+    public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService, ObjectMapper objectMapper) {
         this.bigThreeFilter = bigThreeFilter;
         this.projectSetting = projectSetting;
         this.userDetailsService = userDetailsService;
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -87,11 +89,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/loginSuccess")
                 .failureHandler((request, response, exception) -> {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    response.setContentType(CommonConstant.RESPONSE_CONTENT_TYPE);
                     val result = new JsonResult();
                     result.setMsg(exception.getMessage());
-                    response.getOutputStream().println(
-                            objectMapper.writeValueAsString(result)
-                    );
+                    try (PrintWriter out = response.getWriter()) {
+                        out.write(objectMapper.writeValueAsString(result));
+                        out.flush();
+                    }
                 })
                 .permitAll();
 
