@@ -1,13 +1,9 @@
-package generator.domain;
+package generator.domain.vo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
+import generator.domain.ArticleInfo;
+import generator.domain.common.Out;
 import lombok.Data;
 
 /**
@@ -15,14 +11,12 @@ import lombok.Data;
  */
 
 @Data
-@Entity
-public class ArticleInfo implements Serializable {
+public class ArticleInfoVO implements Out<ArticleInfoVO, ArticleInfo> {
 
     private static final long serialVersionUID = 1L;
     /**
      * 主键
      */
-    @Id
     private Long id;
     /**
      * 文章标题
@@ -31,7 +25,7 @@ public class ArticleInfo implements Serializable {
     /**
      * 作者id,对应user_info中的id
      */
-    private Long authorId;
+    private String authorName;
     /**
      * 发布时间
      */
@@ -39,7 +33,7 @@ public class ArticleInfo implements Serializable {
     /**
      * 文章类型id,对应article_type中的id
      */
-    private Long typeId;
+    private String typeName;
     /**
      * 文章浏览量
      */
@@ -72,32 +66,15 @@ public class ArticleInfo implements Serializable {
      * 文章内容
      */
     private String htmlContent;
-    /**
-     * 0:存在,1:已经被删除
-     */
-    private Integer state;
-    /**
-     *
-     */
-    private Date createTime;
-    /**
-     *
-     */
-    private Long createUser;
-    /**
-     *
-     */
-    private Date updateTime;
-    /**
-     *
-     */
-    private Long updateUser;
 
-    @OneToOne
-    @JoinColumn(name = "authorId", insertable = false, updatable = false)
-    private UserInfo userInfo;
-
-    @OneToOne
-    @JoinColumn(name = "typeId", insertable = false, updatable = false)
-    private ArticleType articleType;
+    @Override
+    public ArticleInfoVO from(ArticleInfo entity) {
+        final ArticleInfoVO res = Out.super.from(entity);
+        res.setAuthorName(entity.getUserInfo().getNickname());
+        res.setTypeName(entity.getArticleType().getTypename());
+        // todo
+        res.setHtmlContent(null);
+        res.setMarkdownContent(null);
+        return res;
+    }
 }
