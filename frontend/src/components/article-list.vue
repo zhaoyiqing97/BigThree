@@ -26,12 +26,14 @@
 
 <script>
 import ArticleItem from "@/components/article-item";
+import {articleInfoPage} from "@/request/article";
 
 export default {
   name: "article-list",
   components: {ArticleItem},
   data() {
     return {
+      page: 1,
       topList: [
         {
           "id": 0,
@@ -179,6 +181,14 @@ export default {
         }
       ]
     }
+  },
+  async mounted() {
+    let res = await articleInfoPage({
+      page: this.page,
+      size: 10,
+      sort: "releaseTime,desc"
+    });
+    console.log(res.data)
   },
   methods: {
     load() {

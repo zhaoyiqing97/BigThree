@@ -2,9 +2,13 @@ package generator.config;
 
 import com.google.common.collect.Lists;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,6 +20,7 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import generator.domain.common.JsonResult;
 import generator.filter.BigThreeFilter;
 import lombok.val;
 
@@ -26,6 +31,9 @@ import lombok.val;
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private final BigThreeFilter bigThreeFilter;
 
@@ -77,6 +85,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginProcessingUrl("/login")
                 .successForwardUrl("/loginSuccess")
+                .failureHandler((request, response, exception) -> {
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    val result = new JsonResult();
+                    result.setMsg(exception.getMessage());
+                    response.getOutputStream().println(
+                            objectMapper.writeValueAsString(result)
+                    );
+                })
                 .permitAll();
 
         // 本地跨域
