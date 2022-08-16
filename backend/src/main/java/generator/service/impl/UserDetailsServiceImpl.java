@@ -1,15 +1,17 @@
 package generator.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-import generator.service.SysUserService;
+import generator.domain.common.CustomerUser;
+import generator.mapper.UserInfoMapper;
+import generator.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -19,9 +21,9 @@ import lombok.RequiredArgsConstructor;
  */
 @Service("UserDetailsServiceImpl")
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserInfoService {
 
-    private final SysUserService sysUserService;
+    private final UserInfoMapper userInfoMapper;
 
     /**
      * 根据userName 查询用户信息
@@ -33,8 +35,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new RuntimeException("用户不能为空");
         }
 
-        return sysUserService.selectByUserName(username)
-                .map(it -> new User(it.getNickname(), it.getPassword(), true, true, true, true, new ArrayList<>()))
+        return Optional.ofNullable(userInfoMapper.selectByUserName(username))
+                .map(it -> new CustomerUser(it.getEmail(), it.getPassword(), new ArrayList<>(), it))
                 .orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
     }
 }

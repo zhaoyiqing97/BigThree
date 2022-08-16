@@ -1,11 +1,9 @@
-package generator.domain;
+package generator.domain.vo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
+import generator.domain.UserInfo;
+import generator.domain.common.Out;
 import lombok.Data;
 
 /**
@@ -13,14 +11,11 @@ import lombok.Data;
  */
 
 @Data
-@Entity
-public class UserInfo implements Serializable {
+public class UserInVO implements Out<UserInVO, UserInfo> {
 
-    private static final long serialVersionUID = 1L;
     /**
      * 主键
      */
-    @Id
     private Long id;
     /**
      * 邮箱地址
@@ -62,6 +57,7 @@ public class UserInfo implements Serializable {
      * 用户权限 0 代表普通用户，1代表管理员
      */
     private Integer authority;
+
     /**
      * 0未激活,1为已经激活
      */
@@ -78,28 +74,4 @@ public class UserInfo implements Serializable {
      * 连续签到天数
      */
     private Integer signDays;
-    /**
-     * 注册时间
-     */
-    private Date regTime;
-    /**
-     * 0代表存在,1代表已经被删除
-     */
-    private Integer state;
-    /**
-     *
-     */
-    private Date createTime;
-    /**
-     *
-     */
-    private Long createUser;
-    /**
-     *
-     */
-    private Date updateTime;
-    /**
-     *
-     */
-    private Long updateUser;
 }
