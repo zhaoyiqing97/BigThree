@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 import generator.domain.ArticleInfo;
+import generator.domain.vo.ArticleInfoVO;
 import generator.repository.ArticleInfoRepository;
 import lombok.val;
 
@@ -66,6 +67,7 @@ public class MyDataJpaTest {
     @Test
     void groupByTop5Stream() {
         val all = articleInfoRepository.findAll();
+        all.forEach(it -> System.out.println(new ArticleInfoVO().from(it)));
         val res = all.stream()
                 .collect(Collectors.groupingBy(ArticleInfo::getTypeId,
                         Collectors.collectingAndThen(Collectors.toList(), ls -> ls.stream()

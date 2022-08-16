@@ -10,3 +10,11 @@ GET http://127.0.0.1:8080/backend/no-auth/article-type/list
 ### article-info page
 # many sort ?sort=firstname&sort=lastname,asc
 GET http://127.0.0.1:8080/backend/no-auth/article-info/page?page=1&size=2&sort=releaseTime,desc
+
+### login
+POST http://127.0.0.1:8080/backend/login
+Content-Type: application/x-www-form-urlencoded
+
+username=1324576%40qq.com&password=123456
+
+###

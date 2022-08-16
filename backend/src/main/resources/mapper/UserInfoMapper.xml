@@ -28,16 +28,6 @@
         <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,email,nickname,
-        password,head_url,city,
-        sex,sign,kiss_num,
-        experience,authority,active,
-        active_code,last_sign,sign_days,
-        reg_time,state,create_time,
-        create_user,update_time,update_user
-    </sql>
-
     <!--根据用户名查询用户-->
     <select id="selectByUserName" resultMap="BaseResultMap">
         SELECT id,
@@ -62,6 +52,6 @@
                update_time,
                update_user
         FROM user_info
-        WHERE nickName = #{userName};
+        WHERE email = #{userName};
     </select>
 </mapper>

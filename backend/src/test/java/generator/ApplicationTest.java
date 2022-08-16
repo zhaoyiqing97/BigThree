@@ -5,9 +5,13 @@ import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,6 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ActiveProfiles("dev")
 class ApplicationTest {
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Test
     void finsElement() {
@@ -62,5 +69,22 @@ class ApplicationTest {
             System.out.println(RandomStringUtils.random(50));
             System.out.println(RandomStringUtils.random(50, true, true));
         }
+    }
+
+    @Test
+    void calculateTheDate() {
+        Stream.of(
+                LocalDate.of(1995, 11, 19),
+                LocalDate.of(1996, 8, 15),
+                LocalDate.of(1996, 12, 7)
+        ).forEach(it -> {
+            val datePlus = it.plusDays(10000);
+            System.out.printf("from [%s];plus 1000 [%s];to now [%s] [%s]\n", it, datePlus, ChronoUnit.DAYS.between(it, LocalDate.now()), ChronoUnit.YEARS.between(it, LocalDate.now()));
+        });
+    }
+
+    @Test
+    void passwordTest() {
+        System.out.println(passwordEncoder.encode("123456"));
     }
 }
