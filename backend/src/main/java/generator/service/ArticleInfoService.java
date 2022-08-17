@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import generator.domain.ArticleInfo;
+import generator.domain.bo.ArticleInfoBO;
 
 /**
  * @author HangZ
@@ -21,4 +22,12 @@ public interface ArticleInfoService {
      * @return page obj
      */
     Page<ArticleInfo> page(Pageable pageable);
+
+    /**
+     * 发布文章
+     *
+     * @param userId user
+     * @param bo     article
+     */
+    void publishArticle(Long userId, ArticleInfoBO bo);
 }

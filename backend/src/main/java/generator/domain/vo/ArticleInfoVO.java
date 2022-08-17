@@ -13,7 +13,6 @@ import lombok.Data;
 @Data
 public class ArticleInfoVO implements Out<ArticleInfoVO, ArticleInfo> {
 
-    private static final long serialVersionUID = 1L;
     /**
      * 主键
      */

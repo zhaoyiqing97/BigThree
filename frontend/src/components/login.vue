@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import {_login} from "@/request/user";
+import {doLogin} from "@/request/user";
 
 export default {
   name: "login",
@@ -50,9 +50,10 @@ export default {
     handleClick() {
 
     },
-    async login() {
-      const res = await _login(this.username, this.password);
-      console.log(res)
+    login() {
+      doLogin(this.username, this.password).then(() => {
+        this.$router.push(`/index`);
+      })
     }
   }
 }

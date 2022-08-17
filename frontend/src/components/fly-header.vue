@@ -18,7 +18,18 @@
              href="#">VIP</a>
         </div>
       </div>
-      <div class="h-full mr-80 flex justify-center items-center">
+      <div class="h-full mr-80 flex justify-center items-center"
+           v-if="user">
+        <div class="mx-1">
+          <img alt=""
+               class="nes-avatar"
+               style="image-rendering: pixelated;"
+               src="../assets/default.jpeg">
+        </div>
+        <div>{{ user.nickname }}</div>
+      </div>
+      <div class="h-full mr-80 flex justify-center items-center"
+           v-else>
         <div class="mx-1">
           <img alt=""
                class="nes-avatar"
@@ -39,6 +50,14 @@
 <script>
 export default {
   name: "fly-header",
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  },
+  data: () => {
+    return {}
+  },
   methods: {
     go(path) {
       this.$router.push(path);

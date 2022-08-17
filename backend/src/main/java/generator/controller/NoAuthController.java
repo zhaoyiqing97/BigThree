@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import generator.domain.ArticleInfo;
-import generator.domain.ArticleType;
 import generator.domain.common.ResultData;
+import generator.domain.vo.ArticleInfoVO;
+import generator.domain.vo.ArticleTypeVO;
 import generator.service.ArticleInfoService;
 import generator.service.ArticleTypeService;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +37,18 @@ public class NoAuthController {
 
 
     @GetMapping("article-type/list")
-    public ResultData<List<ArticleType>> articleTypeList() {
-        val res = articleTypeService.selectAll();
+    public ResultData<List<ArticleTypeVO>> articleTypeList() {
+        val res = articleTypeService.selectAll()
+                .stream()
+                .map(it -> new ArticleTypeVO().from(it))
+                .collect(Collectors.toList());
         return ResultData.success(res);
     }
 
     @GetMapping("article-info/page")
-    public ResultData<Page<ArticleInfo>> articleInfoPage(Pageable pageable) {
-        val res = articleInfoService.page(pageable);
+    public ResultData<Page<ArticleInfoVO>> articleInfoPage(Pageable pageable) {
+        val res = articleInfoService.page(pageable)
+                .map(it -> new ArticleInfoVO().from(it));
         return ResultData.success(res);
     }
 }

@@ -65,121 +65,7 @@ export default {
           "htmlContent": "String"
         }
       ],
-      articleList: [
-        {
-          "id": 0,
-          "title": "String",
-          "authorName": "authorName",
-          "releaseTime": "2022-06-17 09:11:46",
-          "typeId": 0,
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": "authorName",
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 1,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": "authorName",
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 1,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": 0,
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": 0,
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": 0,
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": 0,
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        },
-        {
-          "id": 1,
-          "title": "String",
-          "authorName": 0,
-          "releaseTime": "2022-06-17 09:11:46",
-          "visitNum": 0,
-          "commentNum": 0,
-          "payKiss": 0,
-          "cream": 0,
-          "stick": 0,
-          "isDone": 0,
-          "markdownContent": "String",
-          "htmlContent": "String"
-        }
-      ]
+      articleList: []
     }
   },
   async mounted() {
@@ -188,7 +74,8 @@ export default {
       size: 10,
       sort: "releaseTime,desc"
     });
-    console.log(res.data)
+    console.log(res.data);
+    this.articleList = res.data.content;
   },
   methods: {
     load() {

@@ -4,9 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 import generator.domain.ArticleInfo;
+import generator.domain.bo.ArticleInfoBO;
 import generator.repository.ArticleInfoRepository;
 import generator.service.ArticleInfoService;
+import lombok.val;
 
 /**
  * @author HangZ
@@ -26,5 +30,16 @@ public class ArticleInfoServiceImpl
     @Override
     public Page<ArticleInfo> page(Pageable pageable) {
         return articleInfoRepository.findAll(pageable);
+    }
+
+    @Override
+    public void publishArticle(Long userId, ArticleInfoBO bo) {
+        val articleInfo = bo.to(ArticleInfo.class);
+        articleInfo.setAuthorId(userId);
+        articleInfo.setCreateUser(userId);
+        articleInfo.setReleaseTime(new Date());
+        articleInfo.setCreateTime(new Date());
+        articleInfo.setId(System.currentTimeMillis());
+        articleInfoRepository.saveAndFlush(articleInfo);
     }
 }
