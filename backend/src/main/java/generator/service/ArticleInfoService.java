@@ -1,7 +1,7 @@
 package generator.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import generator.domain.ArticleInfo;
@@ -12,4 +12,13 @@ import generator.domain.ArticleInfo;
  * @createDate 2022-06-08 09:53:40
  */
 @Service
-public interface ArticleInfoService extends IService<ArticleInfo> {}
+public interface ArticleInfoService {
+
+    /**
+     * page article info page
+     *
+     * @param pageable pageable
+     * @return page obj
+     */
+    Page<ArticleInfo> page(Pageable pageable);
+}

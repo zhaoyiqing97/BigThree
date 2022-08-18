@@ -1,9 +1,13 @@
-package generator.domain;
+package generator.domain.common;
+
+import lombok.Data;
 
 /**
  * 异常类
+ *
  * @author WangMingXin
- * */
+ */
+@Data
 public class JsonResult {
     /**
      * 异常码
@@ -22,22 +26,6 @@ public class JsonResult {
 
     public JsonResult(String code, String msg) {
         this.code = code;
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
         this.msg = msg;
     }
 }

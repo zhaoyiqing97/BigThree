@@ -1,11 +1,11 @@
 package generator.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import generator.domain.ArticleInfo;
-import generator.mapper.ArticleInfoMapper;
+import generator.repository.ArticleInfoRepository;
 import generator.service.ArticleInfoService;
 
 /**
@@ -14,5 +14,17 @@ import generator.service.ArticleInfoService;
  * @createDate 2022-06-08 09:53:40
  */
 @Service
-public class ArticleInfoServiceImpl extends ServiceImpl<ArticleInfoMapper, ArticleInfo>
-    implements ArticleInfoService {}
+public class ArticleInfoServiceImpl
+        implements ArticleInfoService {
+
+    private final ArticleInfoRepository articleInfoRepository;
+
+    public ArticleInfoServiceImpl(ArticleInfoRepository articleInfoRepository) {
+        this.articleInfoRepository = articleInfoRepository;
+    }
+
+    @Override
+    public Page<ArticleInfo> page(Pageable pageable) {
+        return articleInfoRepository.findAll(pageable);
+    }
+}

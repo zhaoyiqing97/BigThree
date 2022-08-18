@@ -42,6 +42,7 @@ jobs:
 
       - name: Build with Maven
         run: |
+          mvn -v
           mvn clean install --file backend/pom.xml
           mkdir ${{env.CONTEXT}}/target/extracted
           java -Djarmode=layertools -jar ${{env.CONTEXT}}/target/*.jar extract --destination ${{env.CONTEXT}}/target/extracted

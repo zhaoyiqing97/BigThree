@@ -20,4 +20,22 @@
         state,create_time,create_user,
         update_time,update_user
     </sql>
+    <select id="findAllOrder" resultType="generator.domain.ArticleType">
+        SELECT id,
+               typename,
+               power,
+               state,
+               create_time,
+               create_user,
+               update_time,
+               update_user
+        FROM article_type
+        ORDER BY ${column} ${order}
+    </select>
+    <select id="findAllByTable" resultType="generator.domain.ArticleType">
+        SELECT id,
+               typename,
+               power
+        FROM ${table}
+    </select>
 </mapper>

@@ -27,7 +27,10 @@ CREATE TABLE `article_info`
     `create_user`      BIGINT       NOT NULL,
     `update_time`      DATETIME     NULL,
     `update_user`      BIGINT       NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    -- 外键
+    FOREIGN KEY (author_id) REFERENCES user_info (id),
+    FOREIGN KEY (type_id) REFERENCES article_type (id)
 ) ENGINE = InnoDB;
 -- 索引
 CREATE INDEX `idx_article_info_author_id` ON `article_info` (`author_id`);

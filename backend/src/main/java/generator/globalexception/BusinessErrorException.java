@@ -2,11 +2,16 @@ package generator.globalexception;
 
 
 import generator.domain.BusinessMsgEnum;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 自定义业务异常
- * @author
+ *
+ * @author wmx
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class BusinessErrorException extends RuntimeException {
 
     private static final long serialVersionUID = -7480022450501760611L;
@@ -23,23 +28,5 @@ public class BusinessErrorException extends RuntimeException {
     public BusinessErrorException(BusinessMsgEnum businessMsgEnum) {
         this.code = businessMsgEnum.getCode();
         this.message = businessMsgEnum.getMsg();
-    }
-    // get set方法
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

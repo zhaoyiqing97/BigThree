@@ -1,11 +1,7 @@
 package generator.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import org.springframework.stereotype.Service;
 
-import generator.domain.CollectionInfo;
-import generator.mapper.CollectionInfoMapper;
 import generator.service.CollectionInfoService;
 
 /**
@@ -14,5 +10,6 @@ import generator.service.CollectionInfoService;
  * @createDate 2022-06-08 16:26:12
  */
 @Service
-public class CollectionInfoServiceImpl extends ServiceImpl<CollectionInfoMapper, CollectionInfo>
-    implements CollectionInfoService {}
+public class CollectionInfoServiceImpl
+        implements CollectionInfoService {
+}

@@ -1,11 +1,7 @@
 package generator.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import org.springframework.stereotype.Service;
 
-import generator.domain.PraiseInfo;
-import generator.mapper.PraiseInfoMapper;
 import generator.service.PraiseInfoService;
 
 /**
@@ -14,5 +10,6 @@ import generator.service.PraiseInfoService;
  * @createDate 2022-06-08 16:26:24
  */
 @Service
-public class PraiseInfoServiceImpl extends ServiceImpl<PraiseInfoMapper, PraiseInfo>
-    implements PraiseInfoService {}
+public class PraiseInfoServiceImpl
+        implements PraiseInfoService {
+}

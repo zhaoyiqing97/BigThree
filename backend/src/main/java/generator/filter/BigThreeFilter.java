@@ -1,44 +1,32 @@
 package generator.filter;
 
-
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.*;
-import javax.servlet.FilterConfig;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * @author 王明鑫
- * 过滤器
- * */
+ * @author 王明鑫 过滤器
+ */
 @Component
-public class BigThreeFilter implements Filter {
+@Slf4j
+public class BigThreeFilter extends OncePerRequestFilter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        //在实例化时创建
-        System.out.println("过滤器init");
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        //HttpServletRequestWrapper，HttpServletResponseWrapper的使用往往配合过滤器Filter使用
-        HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper(response);
+    protected void doFilterInternal(
+            HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String requestUri = request.getRequestURI();
-        System.out.println("进入过滤器的请求地址是" + requestUri);
         long start = System.currentTimeMillis();
-        filterChain.doFilter(servletRequest, servletResponse);
-        System.out.println("用时"+(System.currentTimeMillis()-start));
-    }
-
-    @Override
-    public void destroy() {
-        //在服务关闭时销毁
-        System.out.println("销毁过滤器");
+        filterChain.doFilter(request, response);
+        log.info("uri [{}],use [{}]ms", requestUri, (System.currentTimeMillis() - start));
     }
 }
