@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,7 +37,7 @@ public class SpringSecurityHandler implements AuthenticationSuccessHandler, Auth
     private final ObjectMapper objectMapper;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         val principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof CustomerUser) {
             val customerUser = (CustomerUser) principal;
@@ -52,7 +51,7 @@ public class SpringSecurityHandler implements AuthenticationSuccessHandler, Auth
     }
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(CommonConstant.RESPONSE_CONTENT_TYPE);
         val result = new ResultData<>();
@@ -64,7 +63,7 @@ public class SpringSecurityHandler implements AuthenticationSuccessHandler, Auth
     }
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(CommonConstant.RESPONSE_CONTENT_TYPE);
         val result = new ResultData<>();

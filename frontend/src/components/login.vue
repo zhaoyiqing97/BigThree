@@ -61,6 +61,6 @@ export default {
 
 <style scoped>
 .login {
-
+  min-height: 75vh;
 }
 </style>

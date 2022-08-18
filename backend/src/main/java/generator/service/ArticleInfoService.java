@@ -4,8 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import generator.domain.ArticleInfo;
 import generator.domain.bo.ArticleInfoBO;
+import generator.domain.vo.SearchVO;
 
 /**
  * @author HangZ
@@ -30,4 +33,13 @@ public interface ArticleInfoService {
      * @param bo     article
      */
     void publishArticle(Long userId, ArticleInfoBO bo);
+
+    /**
+     * 搜索文章
+     *
+     * @param search 字符
+     * @return page obj
+     */
+    List<SearchVO> search(String search);
+
 }

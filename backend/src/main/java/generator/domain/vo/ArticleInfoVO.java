@@ -71,9 +71,6 @@ public class ArticleInfoVO implements Out<ArticleInfoVO, ArticleInfo> {
         final ArticleInfoVO res = Out.super.from(entity);
         res.setAuthorName(entity.getUserInfo().getNickname());
         res.setTypeName(entity.getArticleType().getTypename());
-        // todo
-        res.setHtmlContent(null);
-        res.setMarkdownContent(null);
         return res;
     }
 }

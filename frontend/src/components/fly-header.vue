@@ -26,7 +26,8 @@
                style="image-rendering: pixelated;"
                src="../assets/default.jpeg">
         </div>
-        <div>{{ user.nickname }}</div>
+        <div class="text-white mx-1">{{ user.nickname }}</div>
+        <div><i class="nes-logo mx-1 is-medium"></i></div>
       </div>
       <div class="h-full mr-80 flex justify-center items-center"
            v-else>

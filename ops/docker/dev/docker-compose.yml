@@ -14,6 +14,15 @@ services:
     ports:
       - '3306:3306'
 
+  elasticsearch:
+    image: big_three/dev/elasticsearch:latest
+    build:
+      context: ../../build/elasticsearch
+    container_name: elasticsearch
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+
   backend:
     image: big_three/dev/backend:latest
     build:
@@ -21,6 +30,7 @@ services:
     container_name: dev-backend
     depends_on:
       - mysql
+      - elasticsearch
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
 

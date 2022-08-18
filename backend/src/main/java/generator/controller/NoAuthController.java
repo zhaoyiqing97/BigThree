@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import generator.domain.common.ResultData;
 import generator.domain.vo.ArticleInfoVO;
 import generator.domain.vo.ArticleTypeVO;
+import generator.domain.vo.SearchVO;
 import generator.service.ArticleInfoService;
 import generator.service.ArticleTypeService;
 import lombok.RequiredArgsConstructor;
@@ -51,4 +52,10 @@ public class NoAuthController {
                 .map(it -> new ArticleInfoVO().from(it));
         return ResultData.success(res);
     }
+
+    @GetMapping("article-info/search")
+    public ResultData<List<SearchVO>> articleInfoSearch(String search) {
+        return ResultData.success(articleInfoService.search(search));
+    }
+
 }

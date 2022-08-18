@@ -3,12 +3,18 @@ package generator.service.impl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import generator.domain.ArticleInfo;
 import generator.domain.bo.ArticleInfoBO;
+import generator.domain.es.ArticleSearch;
+import generator.domain.vo.SearchVO;
 import generator.repository.ArticleInfoRepository;
+import generator.repository.ArticleSearchRepository;
 import generator.service.ArticleInfoService;
 import lombok.val;
 
@@ -22,9 +28,11 @@ public class ArticleInfoServiceImpl
         implements ArticleInfoService {
 
     private final ArticleInfoRepository articleInfoRepository;
+    private final ArticleSearchRepository articleSearchRepository;
 
-    public ArticleInfoServiceImpl(ArticleInfoRepository articleInfoRepository) {
+    public ArticleInfoServiceImpl(ArticleInfoRepository articleInfoRepository, ArticleSearchRepository articleSearchRepository) {
         this.articleInfoRepository = articleInfoRepository;
+        this.articleSearchRepository = articleSearchRepository;
     }
 
     @Override
@@ -33,6 +41,7 @@ public class ArticleInfoServiceImpl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void publishArticle(Long userId, ArticleInfoBO bo) {
         val articleInfo = bo.to(ArticleInfo.class);
         articleInfo.setAuthorId(userId);
@@ -41,5 +50,25 @@ public class ArticleInfoServiceImpl
         articleInfo.setCreateTime(new Date());
         articleInfo.setId(System.currentTimeMillis());
         articleInfoRepository.saveAndFlush(articleInfo);
+
+        val search = new ArticleSearch();
+        search.setId(articleInfo.getId());
+        search.setTitle(bo.getTitle());
+        search.setHtmlContent(bo.getHtmlContent());
+        search.setMarkdownContent(bo.getMarkdownContent());
+        articleSearchRepository.save(search);
+    }
+
+    @Override
+    public List<SearchVO> search(String search) {
+        return articleSearchRepository.findByTitleOrHtmlContent(search, search)
+                .stream()
+                .map(it -> {
+                    final SearchVO res = new SearchVO();
+                    res.setId(it.getContent().getId());
+                    res.setContent(it.getHighlightFields());
+                    return res;
+                })
+                .collect(Collectors.toList());
     }
 }
