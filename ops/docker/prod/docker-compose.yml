@@ -10,11 +10,16 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=ZAQ!2wsx
 
+  elasticsearch:
+    image: ghcr.io/zhaoyiqing97/big_three/elasticsearch:latest
+    container_name: elasticsearch
+
   backend:
     image: ghcr.io/zhaoyiqing97/big_three/backend:latest
     container_name: backend
     depends_on:
       - mysql
+      - elasticsearch
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
 

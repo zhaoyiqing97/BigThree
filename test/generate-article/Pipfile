@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 pymysql = "*"
+requests = "*"
+
 [dev-packages]
 
 [requires]

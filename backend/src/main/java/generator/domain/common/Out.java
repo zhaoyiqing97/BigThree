@@ -21,4 +21,18 @@ public interface Out<V, E> {
         return (V) this;
     }
 
+    /**
+     * @param clazz
+     * @return
+     */
+    default E to(Class<E> clazz) {
+        E res = null;
+        try {
+            res = clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        BeanUtils.copyProperties(this, res);
+        return res;
+    }
 }

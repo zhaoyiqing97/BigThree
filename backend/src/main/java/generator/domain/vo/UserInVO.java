@@ -25,10 +25,7 @@ public class UserInVO implements Out<UserInVO, UserInfo> {
      * 用户昵称
      */
     private String nickname;
-    /**
-     * 用户密码
-     */
-    private String password;
+
     /**
      * 头像地址
      */

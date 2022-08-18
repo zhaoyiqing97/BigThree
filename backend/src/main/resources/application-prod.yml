@@ -4,3 +4,6 @@ spring:
     password: big_three
     url: jdbc:mysql://mysql:3306/big_three?characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  elasticsearch:
+    uris: http://elasticsearch:9200

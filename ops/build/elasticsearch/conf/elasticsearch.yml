@@ -1,0 +1,18 @@
+cluster:
+  name: es-cluster
+node:
+  master: true
+  data: true
+network:
+  bind_host: 0.0.0.0
+http:
+  port: 9200
+  cors:
+    enabled: true
+    allow-origin: "*"
+transport.tcp.port: 9300
+discovery:
+  type: single-node
+bootstrap:
+  memory_lock: false
+  system_call_filter: false
