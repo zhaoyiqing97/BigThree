@@ -4,6 +4,7 @@
     <p class="text-left py-3">
       <label for="title">title</label>
       <input id="title"
+             v-model="title"
              class="nes-input">
     </p>
     <div class="border-solid"
@@ -53,8 +54,8 @@
 </template>
 <script>
 import {VueEditor} from "vue2-editor";
+import {articleType, pushArticle} from "@/request/article";
 
-const axios = require('axios');
 export default {
   name: "write-article",
   props: ['id'],
@@ -63,25 +64,11 @@ export default {
   },
   data() {
     return {
+      title: 'title',
       editorData: '<p>Content of the editor.</p>',
-      categoryValue: '选项1',
+      categoryValue: null,
       payValue: 0,
-      categoryOptions: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
+      categoryOptions: [],
       payOptions: [
         {
           value: 0,
@@ -103,33 +90,29 @@ export default {
     };
   },
   methods: {
-    onEditorInput(input) {
-      console.log(input);
-    },
-    publishNow() {
-      console.log({
-        editorData: this.editorData,
-        categoryValue: this.categoryValue,
-        payValue: this.payValue
-      })
+    async publishNow() {
+      const data = {
+        title: this.title,
+        typeId: this.categoryValue,
+        payKiss: this.payValue,
+        isDone: 0,
+        markdownContent: '',
+        htmlContent: this.editorData
+      }
+      const res = await pushArticle(data);
+      console.log(res);
     }
   },
   async created() {
     if (this.id) {
       console.log(this.id, 'this.id');
     }
-    try {
-      const response = await axios.get('/backend/list');
-      const data = response.data
-      console.log(data);
-      this.categoryOptions = data.map(it => {
-        return {label: it.typename, value: it.id}
-      })
-    } catch (e) {
-      console.error(e);
-    }
+    const res = await articleType();
+    this.categoryOptions = res.data.map(it => {
+      return {label: it.typename, value: it.id}
+    });
+    this.categoryValue = this.categoryOptions[0].value;
   }
-
 }
 </script>
 

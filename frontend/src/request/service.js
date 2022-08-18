@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Message} from "element-ui";
+import router from "@/router";
 
 // create an axios instance
 const service = axios.create({
@@ -36,6 +37,7 @@ service.interceptors.response.use((response) => {
             case 400:
                 break;
             case 401:
+                router.push('/login');
                 break;
             case 403:
                 break;

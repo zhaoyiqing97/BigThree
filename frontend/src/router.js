@@ -2,9 +2,11 @@ import VueRouter from 'vue-router'
 import index from '@/components/index.vue'
 import writeArticle from '@/components/write-article'
 import login from "@/components/login";
-import Cookies from "js-cookie";
+import store from "@/store";
+import Vue from "vue";
 
 const _ = require('lodash');
+Vue.use(VueRouter)
 
 const _router = new VueRouter({
     mode: 'history', // require service support
@@ -37,10 +39,10 @@ const no_auth_router_arr = [
     '/index'
 ]
 _router.beforeEach((to, from, next) => {
-    const token = Cookies.get('big_three_token')
-    console.debug(`router.beforeEach token ${token}`, from, to, _.includes(no_auth_router_arr, to.path));
+    const user = store.state.user;
+    console.debug(`router.beforeEach token ${user}`, from, to, _.includes(no_auth_router_arr, to.path));
     // 检查用户是否已登录
-    if (token) {
+    if (user) {
         next();
         return;
     }

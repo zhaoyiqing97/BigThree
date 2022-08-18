@@ -5,6 +5,7 @@ import random
 import time
 
 import pymysql
+import requests as requests
 
 import readJSON
 
@@ -72,20 +73,28 @@ if __name__ == "__main__":
                          password="big_three",
                          database="big_three")
     cursor = db.cursor()
+    id_article = time.time()
+    article = 生成文章()
     cursor.execute(f"""
     INSERT INTO big_three.article_info 
     (id, title, author_id, release_time, type_id, visit_num, comment_num, pay_kiss, cream, stick, is_done, markdown_content, html_content, state, create_time, create_user, update_time, update_user) 
     VALUES 
     (%s, %s, 1, %s, %s, %s, 0, 0, 0, 0, 1, %s, %s, 0, %s, 1, NULL, NULL);
     """, (
-        time.time(),
+        id_article,
         xx,
         time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
         random.randint(1, 4),
         random.randint(50, 400),
-        生成文章(),
-        生成文章(),
+        article,
+        article,
         time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     ))
     db.commit()
     db.close()
+    res = requests.post("http://127.0.0.1:9200/article-search/_doc", json={
+        "id": id_article,
+        "title": xx,
+        "htmlContent": article
+    })
+    print(res)

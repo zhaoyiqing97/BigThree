@@ -9,7 +9,7 @@ import lombok.Data;
 public class ResultData<T> {
 
     private Integer code;
-    private String message;
+    private String msg;
     private T data;
 
     /**
@@ -18,7 +18,7 @@ public class ResultData<T> {
     public static <T> ResultData<T> success() {
         ResultData<T> resultData = new ResultData<>();
         resultData.setCode(ResultCode.SUCCESS.getCode());
-        resultData.setMessage(ResultCode.SUCCESS.getMessage());
+        resultData.setMsg(ResultCode.SUCCESS.getMessage());
         return resultData;
     }
 
@@ -37,7 +37,7 @@ public class ResultData<T> {
     public static <T> ResultData<T> error() {
         ResultData<T> resultData = new ResultData<>();
         resultData.setCode(ResultCode.UNKNOWN_ERROR.getCode());
-        resultData.setMessage(ResultCode.UNKNOWN_ERROR.getMessage());
+        resultData.setMsg(ResultCode.UNKNOWN_ERROR.getMessage());
         return resultData;
     }
 

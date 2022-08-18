@@ -43,11 +43,11 @@ public class ArticleInfo implements Serializable {
     /**
      * 文章浏览量
      */
-    private Long visitNum;
+    private Long visitNum = 0L;
     /**
      * 文章评论量
      */
-    private Integer commentNum;
+    private Integer commentNum = 0;
     /**
      * 悬赏飞吻数
      */
@@ -55,11 +55,11 @@ public class ArticleInfo implements Serializable {
     /**
      * 是否是精华帖,0代表不是,1代表是
      */
-    private Integer cream;
+    private Integer cream = 0;
     /**
      * 是否是置顶帖,0代表不是,1代表是
      */
-    private Integer stick;
+    private Integer stick = 0;
     /**
      * 是否是否结帖,0代表不是,1代表是
      */
@@ -75,7 +75,7 @@ public class ArticleInfo implements Serializable {
     /**
      * 0:存在,1:已经被删除
      */
-    private Integer state;
+    private Integer state = 0;
     /**
      *
      */

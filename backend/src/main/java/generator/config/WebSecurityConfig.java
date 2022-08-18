@@ -2,12 +2,9 @@ package generator.config;
 
 import com.google.common.collect.Lists;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,10 +16,6 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.io.PrintWriter;
-
-import generator.constant.CommonConstant;
-import generator.domain.common.JsonResult;
 import generator.filter.BigThreeFilter;
 import lombok.val;
 
@@ -34,19 +27,19 @@ import lombok.val;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final ObjectMapper objectMapper;
-
     private final BigThreeFilter bigThreeFilter;
 
     private final ProjectSetting projectSetting;
 
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService, ObjectMapper objectMapper) {
+    private final SpringSecurityHandler springSecurityHandler;
+
+    public WebSecurityConfig(BigThreeFilter bigThreeFilter, ProjectSetting projectSetting, @Qualifier("UserDetailsServiceImpl") UserDetailsService userDetailsService, SpringSecurityHandler springSecurityHandler) {
         this.bigThreeFilter = bigThreeFilter;
         this.projectSetting = projectSetting;
         this.userDetailsService = userDetailsService;
-        this.objectMapper = objectMapper;
+        this.springSecurityHandler = springSecurityHandler;
     }
 
     /**
@@ -86,18 +79,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // login
         http.formLogin()
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/loginSuccess")
-                .failureHandler((request, response, exception) -> {
-                    response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                    response.setContentType(CommonConstant.RESPONSE_CONTENT_TYPE);
-                    val result = new JsonResult();
-                    result.setMsg(exception.getMessage());
-                    try (PrintWriter out = response.getWriter()) {
-                        out.write(objectMapper.writeValueAsString(result));
-                        out.flush();
-                    }
-                })
+                .successHandler(springSecurityHandler)
+                .failureHandler(springSecurityHandler)
                 .permitAll();
+
+        // no login
+        http.exceptionHandling()
+                .authenticationEntryPoint(springSecurityHandler);
 
         // 本地跨域
         if (projectSetting.getCorsMappings() != null) {
@@ -115,5 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 不使用session
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+
+        http.csrf().disable();
     }
 }

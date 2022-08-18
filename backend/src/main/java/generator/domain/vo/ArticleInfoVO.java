@@ -13,7 +13,6 @@ import lombok.Data;
 @Data
 public class ArticleInfoVO implements Out<ArticleInfoVO, ArticleInfo> {
 
-    private static final long serialVersionUID = 1L;
     /**
      * 主键
      */
@@ -72,9 +71,6 @@ public class ArticleInfoVO implements Out<ArticleInfoVO, ArticleInfo> {
         final ArticleInfoVO res = Out.super.from(entity);
         res.setAuthorName(entity.getUserInfo().getNickname());
         res.setTypeName(entity.getArticleType().getTypename());
-        // todo
-        res.setHtmlContent(null);
-        res.setMarkdownContent(null);
         return res;
     }
 }
