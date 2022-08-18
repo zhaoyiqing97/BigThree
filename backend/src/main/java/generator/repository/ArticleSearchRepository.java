@@ -21,6 +21,13 @@ import generator.domain.es.ArticleSearch;
 @Repository
 public interface ArticleSearchRepository extends ElasticsearchRepository<ArticleSearch, Long> {
 
+    /**
+     * 搜索文章
+     *
+     * @param title   标题
+     * @param content 内容
+     * @return list
+     */
     @Highlight(fields = {
             @HighlightField(name = "title", parameters = @HighlightParameters(preTags = "<em class='text-red-500'>", postTags = "</em>")),
             @HighlightField(name = "htmlContent", parameters = @HighlightParameters(preTags = "<em class='text-red-500'>", postTags = "</em>"))

@@ -16,17 +16,21 @@ public interface Out<V, E> {
      * @param entity 转换实体
      * @return 对象
      */
+
+    @SuppressWarnings("unchecked")
     default V from(E entity) {
         BeanUtils.copyProperties(entity, this);
         return (V) this;
     }
 
     /**
-     * @param clazz
-     * @return
+     * zai转换一下
+     *
+     * @param clazz class
+     * @return obj
      */
     default E to(Class<E> clazz) {
-        E res = null;
+        E res;
         try {
             res = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
