@@ -54,7 +54,7 @@
 </template>
 <script>
 import {VueEditor} from "vue2-editor";
-import {articleType, pushArticle} from "@/request/article";
+import {articleType, articlePush} from "@/request/article";
 
 export default {
   name: "write-article",
@@ -99,7 +99,7 @@ export default {
         markdownContent: '',
         htmlContent: this.editorData
       }
-      const res = await pushArticle(data);
+      const res = await articlePush(data);
       console.log(res);
     }
   },
