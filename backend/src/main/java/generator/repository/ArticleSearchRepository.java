@@ -30,7 +30,7 @@ public interface ArticleSearchRepository extends ElasticsearchRepository<Article
      */
     @Highlight(fields = {
             @HighlightField(name = "title", parameters = @HighlightParameters(preTags = "<em class='text-red-500'>", postTags = "</em>")),
-            @HighlightField(name = "htmlContent", parameters = @HighlightParameters(preTags = "<em class='text-red-500'>", postTags = "</em>"))
+            @HighlightField(name = "markdownContent", parameters = @HighlightParameters(preTags = "<em class='text-red-500'>", postTags = "</em>"))
     })
-    List<SearchHit<ArticleSearch>> findByTitleOrHtmlContent(String title, String content);
+    List<SearchHit<ArticleSearch>> findByTitleOrMarkdownContent(String title, String content);
 }

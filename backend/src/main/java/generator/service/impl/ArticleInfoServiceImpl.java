@@ -1,12 +1,16 @@
 package generator.service.impl;
 
+import com.google.common.collect.Lists;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import generator.domain.ArticleInfo;
@@ -54,19 +58,21 @@ public class ArticleInfoServiceImpl
         val search = new ArticleSearch();
         search.setId(articleInfo.getId());
         search.setTitle(bo.getTitle());
-        search.setHtmlContent(bo.getHtmlContent());
         search.setMarkdownContent(bo.getMarkdownContent());
         articleSearchRepository.save(search);
     }
 
     @Override
     public List<SearchVO> search(String search) {
-        return articleSearchRepository.findByTitleOrHtmlContent(search, search)
+        return articleSearchRepository.findByTitleOrMarkdownContent(search, search)
                 .stream()
                 .map(it -> {
                     final SearchVO res = new SearchVO();
-                    res.setId(it.getContent().getId());
-                    res.setContent(it.getHighlightFields());
+                    final ArticleSearch content = it.getContent();
+                    res.setId(content.getId());
+                    final Map<String, List<String>> highlightFields = it.getHighlightFields();
+                    res.setTitle(highlightFields.getOrDefault("title", Lists.newArrayList(content.getTitle())).get(0));
+                    res.setContent(highlightFields.getOrDefault("markdownContent", Collections.singletonList("")).get(0));
                     return res;
                 })
                 .collect(Collectors.toList());

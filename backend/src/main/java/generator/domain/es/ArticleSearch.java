@@ -34,10 +34,5 @@ public class ArticleSearch {
      */
     @Field(type = FieldType.Text, analyzer = "ik_max_word,pinyin_word", searchAnalyzer = "ik_max_word,pinyin_word")
     private String markdownContent;
-    /**
-     * 文章内容
-     */
-    @Field(type = FieldType.Text, analyzer = "ik_max_word,pinyin_word", searchAnalyzer = "ik_max_word,pinyin_word")
-    private String htmlContent;
 
 }

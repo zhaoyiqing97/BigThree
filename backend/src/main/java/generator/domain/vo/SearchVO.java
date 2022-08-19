@@ -1,8 +1,5 @@
 package generator.domain.vo;
 
-import java.util.List;
-import java.util.Map;
-
 import lombok.Data;
 
 /**
@@ -15,5 +12,6 @@ import lombok.Data;
 @Data
 public class SearchVO {
     private Long id;
-    private Map<String, List<String>> content;
+    private String title;
+    private String content;
 }
