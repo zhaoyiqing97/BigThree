@@ -26,3 +26,9 @@ export const articleSearch = (search) => {
         method: 'get'
     });
 }
+export const articleGet = (id) => {
+    return request({
+        url: process.env.VUE_APP_API_CONTEXT + `/no-auth/article-info/${id}`,
+        method: 'get'
+    });
+}

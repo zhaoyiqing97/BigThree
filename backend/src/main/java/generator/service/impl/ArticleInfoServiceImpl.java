@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import generator.domain.ArticleInfo;
@@ -76,5 +77,10 @@ public class ArticleInfoServiceImpl
                     return res;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<ArticleInfo> find(Long id) {
+        return articleInfoRepository.findById(id);
     }
 }
