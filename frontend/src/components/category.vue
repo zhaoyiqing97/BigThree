@@ -29,8 +29,13 @@
         <el-option
             v-for="item in articleList"
             :key="item.id"
-            :label="item.label"
             :value="item.id">
+          <span>
+            <span v-html="item.title"></span>
+            <el-divider class="my-1"
+                        direction="vertical"></el-divider>
+            <span v-html="item.content"></span>
+          </span>
         </el-option>
       </el-select>
     </div>
@@ -54,21 +59,17 @@ export default {
       this.$router.push(`/write`);
     },
     async querySearchAsync(queryString) {
+      if (!queryString) {
+        return;
+      }
       console.log('querySearchAsync', queryString);
       this.loading = true;
       this.articleList = [];
       const res = await articleSearch(queryString);
-      console.log(res.data);
-      this.articleList = res.data.map(it => {
-        return {
-          label: it.content.title[0],
-          id: it.id
-        }
-      })
+      this.articleList = res.data;
       this.loading = false;
     },
     handleSelect(it) {
-      console.log('handleSelect', it);
       this.$router.push(`/article-info/${it}`);
     }
   }
