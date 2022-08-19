@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import generator.domain.ArticleInfo;
 import generator.domain.bo.ArticleInfoBO;
@@ -42,4 +43,10 @@ public interface ArticleInfoService {
      */
     List<SearchVO> search(String search);
 
+    /**
+     * 文章信息
+     * @param id id
+     * @return obj
+     */
+    Optional<ArticleInfo> find(Long id);
 }

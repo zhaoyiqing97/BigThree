@@ -18,28 +18,59 @@
       </div>
     </div>
     <div class="flex">
-      <input v-model="input"
-             class="nes-input"
-             placeholder="请输入内容">
-
-      <el-button slot="append"
-                 class="nes-btn"
-                 icon="el-icon-search"></el-button>
+      <el-select v-model="input"
+                 :loading="loading"
+                 :remote-method="querySearchAsync"
+                 class="nes-input p-0"
+                 filterable
+                 placeholder="请输入内容"
+                 remote
+                 @change="handleSelect">
+        <el-option
+            v-for="item in articleList"
+            :key="item.id"
+            :value="item.id">
+          <span>
+            <span v-html="item.title"></span>
+            <el-divider class="my-1"
+                        direction="vertical"></el-divider>
+            <span v-html="item.content"></span>
+          </span>
+        </el-option>
+      </el-select>
     </div>
   </div>
 </template>
 
 <script>
+import {articleSearch} from "@/request/article";
+
 export default {
   name: "category",
   data: () => {
     return {
-      input: ''
+      input: '',
+      articleList: [],
+      loading: false
     }
   },
   methods: {
     writeArticle() {
       this.$router.push(`/write`);
+    },
+    async querySearchAsync(queryString) {
+      if (!queryString) {
+        return;
+      }
+      console.log('querySearchAsync', queryString);
+      this.loading = true;
+      this.articleList = [];
+      const res = await articleSearch(queryString);
+      this.articleList = res.data;
+      this.loading = false;
+    },
+    handleSelect(it) {
+      this.$router.push(`/article-info/${it}`);
     }
   }
 }

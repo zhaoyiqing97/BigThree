@@ -16,6 +16,7 @@
           style="overflow:auto">
         <li v-for="(item,index) in articleList"
             :key="index"
+            @click="articleInfo(item.id)"
             class="p-1">
           <article-item :item="item"></article-item>
         </li>
@@ -26,7 +27,7 @@
 
 <script>
 import ArticleItem from "@/components/article-item";
-import {articleInfoPage} from "@/request/article";
+import {articlePage} from "@/request/article";
 
 export default {
   name: "article-list",
@@ -69,20 +70,23 @@ export default {
     }
   },
   async mounted() {
-    this.loadData();
+    await this.loadData();
   },
   methods: {
     async load() {
       this.page++;
-      this.loadData();
+      await this.loadData();
     },
     async loadData() {
-      let res = await articleInfoPage({
+      let res = await articlePage({
         page: this.page,
         size: 10,
         sort: "releaseTime,desc"
       });
       this.articleList.push(...res.data.content);
+    },
+    articleInfo(id) {
+      this.$router.push(`/article-info/${id}`);
     }
   }
 }

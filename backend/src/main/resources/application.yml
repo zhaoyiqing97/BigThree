@@ -11,7 +11,7 @@ spring:
     hibernate:
       ddl-auto: none
 server:
-  port: 8080
+  port: 18080
   servlet:
     context-path: /backend
 management:
