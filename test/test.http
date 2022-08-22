@@ -1,7 +1,31 @@
-GET http://127.0.0.1:8080/backend/list
+### actuator
+GET http://127.0.0.1:8080/backend/actuator
 
-###
-GET http://127.0.0.1:8080/actuator
+### health
+GET http://127.0.0.1:8080/backend/actuator/health
 
-###
-GET http://127.0.0.1:8080/actuator/health
+### login
+POST http://127.0.0.1:8080/backend/login
+Content-Type: application/x-www-form-urlencoded
+
+username=1324576%40qq.com&password=123456
+
+### article-info page
+# many sort ?sort=firstname&sort=lastname,asc
+GET http://127.0.0.1:8080/backend/no-auth/article-info/page?page=1&size=2&sort=releaseTime,desc
+
+### article-type list
+GET http://127.0.0.1:8080/backend/no-auth/article-type/list
+
+### article-info search
+GET http://127.0.0.1:8080/backend/no-auth/article-info/search?search=文章
+
+### es clear
+POST http://127.0.0.1:9200/article-search/_delete_by_query
+Content-Type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  }
+}

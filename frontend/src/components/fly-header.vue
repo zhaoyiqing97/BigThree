@@ -3,7 +3,7 @@
     <div class="h-16 bg-gray-800 flex justify-between">
       <div id="rY"
            class="h-full ml-80 p-1"
-           @click="goIndex()">
+           @click="go('/index')">
         <i class="nes-icon is-medium heart"></i>
       </div>
       <div class="h-full flex justify-around items-end">
@@ -18,14 +18,28 @@
              href="#">VIP</a>
         </div>
       </div>
-      <div class="h-full mr-80 flex justify-center items-center">
+      <div class="h-full mr-80 flex justify-center items-center"
+           v-if="user">
         <div class="mx-1">
           <img alt=""
                class="nes-avatar"
                style="image-rendering: pixelated;"
                src="../assets/default.jpeg">
         </div>
-        <el-button class="text-white mx-1 nes-btn is-primary">login</el-button>
+        <div class="text-white mx-1">{{ user.nickname }}</div>
+        <div><i class="nes-logo mx-1 is-medium"></i></div>
+      </div>
+      <div class="h-full mr-80 flex justify-center items-center"
+           v-else>
+        <div class="mx-1">
+          <img alt=""
+               class="nes-avatar"
+               style="image-rendering: pixelated;"
+               src="../assets/default.jpeg">
+        </div>
+        <el-button class="text-white mx-1 nes-btn is-primary"
+                   @click="go('/login')">login
+        </el-button>
         <el-button class="text-white mx-1 nes-btn is-success">register</el-button>
         <i class="nes-icon twitter is-medium mx-2"></i>
         <i class="nes-icon facebook is-medium mx-2"></i>
@@ -37,9 +51,17 @@
 <script>
 export default {
   name: "fly-header",
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  },
+  data: () => {
+    return {}
+  },
   methods: {
-    goIndex() {
-      this.$router.push(`/index`);
+    go(path) {
+      this.$router.push(path);
     }
   }
 }

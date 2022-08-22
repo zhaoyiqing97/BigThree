@@ -3,6 +3,13 @@ spring:
     name: big-three
   profiles:
     active: dev
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  jpa:
+    hibernate:
+      ddl-auto: none
 server:
   port: 8080
   servlet:
@@ -15,3 +22,11 @@ management:
   endpoint:
     health:
       show-details: always
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.data.elasticsearch.client.WIRE: TRACE
+    root: INFO

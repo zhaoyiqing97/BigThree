@@ -16,6 +16,8 @@ import lombok.Data;
 @ConfigurationProperties("big-three")
 @Data
 public class ProjectSetting {
-  /** 允许跨域的域名 */
-  private String[] corsMappings;
+    /**
+     * 允许跨域的域名
+     */
+    private String[] corsMappings;
 }

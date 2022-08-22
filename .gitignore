@@ -3,7 +3,7 @@
 *.lock
 
 # Package Files #
-*.jar
+target/*.jar
 *.war
 *.ear
 target/

@@ -1,39 +1,33 @@
 package generator.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.lang.model.type.NullType;
 
-import generator.domain.ArticleType;
-import generator.service.ArticleTypeService;
+import generator.domain.bo.ArticleInfoBO;
+import generator.domain.common.CustomerUser;
+import generator.domain.common.ResultData;
+import generator.service.ArticleInfoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 
 /**
  * @author zhaoyiqing
  */
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class Controller {
 
-  private final ArticleTypeService articleTypeService;
+    private final ArticleInfoService articleInfoService;
 
-  public Controller(ArticleTypeService articleTypeService) {
-    this.articleTypeService = articleTypeService;
-  }
-
-  @GetMapping("/list")
-  public List<ArticleType> list() {
-    val res = articleTypeService.selectAll();
-    log.info("list res [{}]", res);
-    return res;
-  }
-
-  /** 登录成功后重定向地址 */
-  @RequestMapping("/loginSuccess")
-  public String loginSuccess() {
-    return "登录成功";
-  }
+    @PostMapping("/publishArticle")
+    public ResultData<NullType> publishArticle(@AuthenticationPrincipal CustomerUser customerUser,
+                                               @RequestBody ArticleInfoBO bo) {
+        articleInfoService.publishArticle(customerUser.getUserInfo().getId(), bo);
+        return ResultData.success(null);
+    }
 }

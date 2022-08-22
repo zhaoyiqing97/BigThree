@@ -5,20 +5,34 @@ services:
     image: big_three/dev/mysql:latest
     build:
       context: ../../build/mysql
-    container_name: dev-mysql
+    container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - /var/lib/mysql-files
     environment:
       - MYSQL_ROOT_PASSWORD=ZAQ!2wsx
-    ports:
-      - '3306:3306'
+  #    ports:
+  #      - '3306:3306'
+
+  elasticsearch:
+    image: big_three/dev/elasticsearch:latest
+    build:
+      context: ../../build/elasticsearch
+    container_name: elasticsearch
+  #    ports:
+  #      - '9200:9200'
+  #      - '9300:9300'
 
   backend:
     image: big_three/dev/backend:latest
     build:
       context: ../../../backend
-    container_name: dev-backend
+    container_name: backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
 
@@ -26,6 +40,9 @@ services:
     image: big_three/dev/frontend:latest
     build:
       context: ../../../frontend
-    container_name: dev-frontend
+    container_name: frontend
+    depends_on:
+      backend:
+        condition: service_healthy
     ports:
       - '8080:80'

@@ -4,11 +4,17 @@
     <p class="text-left py-3">
       <label for="title">title</label>
       <input id="title"
+             v-model="title"
              class="nes-input">
     </p>
     <div class="border-solid"
          style="min-height: 50vh">
-      <vue-editor v-model="editorData"/>
+      <editor
+          v-model="editorDataHtml"
+          :init="editorInit"
+          api-key="no-api-key"
+          output-format="html"
+      />
     </div>
     <p>category</p>
     <div class="flex justify-center my-5">
@@ -52,36 +58,51 @@
   </div>
 </template>
 <script>
-import {VueEditor} from "vue2-editor";
+import {articleType, articlePush} from "@/request/article";
+// 引入组件
+import Editor from '@tinymce/tinymce-vue'
+import tinymce from 'tinymce/tinymce'
+import 'tinymce/icons/default/icons' // 解决了icons.js 报错Unexpected token '<'
+// 引入富文本编辑器主题的js和css
+import 'tinymce/themes/silver/theme.min.js'
+import 'tinymce/skins/ui/oxide/skin.min.css'
+// 扩展插件
+import 'tinymce/plugins/link'
+import 'tinymce/plugins/lists'
+import 'tinymce/plugins/image'
+import 'tinymce/plugins/code'
+import 'tinymce/plugins/table'
+import 'tinymce/plugins/wordcount'
 
-const axios = require('axios');
 export default {
   name: "write-article",
   props: ['id'],
   components: {
-    VueEditor
+    'editor': Editor
   },
   data() {
     return {
-      editorData: '<p>Content of the editor.</p>',
-      categoryValue: '选项1',
+      editorInit: {
+        height: 500,
+        max_height: 500,
+        min_height: 500,
+
+        plugins: 'link lists image code table wordcount', // 用到的插件：链接、列表、图片、代码块、表格、字数
+        toolbar: 'undo redo | bold italic underline strikethrough | formatselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | link unlink table image | removeformat',
+        fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
+
+        // 工具栏
+        images_upload_base_path: 'http://xxxx.com', // 上传图片基础路径
+        images_upload_url: '/api/', // 上传图片地址
+        statusbar: true, // 底部的状态栏
+        menubar: false, // 最上方的菜单
+        branding: false, // 水印“Powered by TinyMCE”
+      },
+      title: 'title',
+      editorDataHtml: '',
+      categoryValue: null,
       payValue: 0,
-      categoryOptions: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
+      categoryOptions: [],
       payOptions: [
         {
           value: 0,
@@ -103,42 +124,42 @@ export default {
     };
   },
   methods: {
-    onEditorInput(input) {
-      console.log(input);
-    },
-    publishNow() {
-      console.log({
-        editorData: this.editorData,
-        categoryValue: this.categoryValue,
-        payValue: this.payValue
-      })
+    async publishNow() {
+      const text = window.tinyMCE.activeEditor.getContent({format: 'text'})
+      const data = {
+        title: this.title,
+        typeId: this.categoryValue,
+        payKiss: this.payValue,
+        isDone: 0,
+        markdownContent: text,
+        htmlContent: this.editorDataHtml
+      }
+      const res = await articlePush(data);
+      console.log(res);
+      this.$notify({
+        title: '成功',
+        message: '发布成功',
+        type: 'success'
+      });
     }
   },
   async created() {
     if (this.id) {
       console.log(this.id, 'this.id');
     }
-    try {
-      const response = await axios.get('/backend/list');
-      const data = response.data
-      console.log(data);
-      this.categoryOptions = data.map(it => {
-        return {label: it.typename, value: it.id}
-      })
-    } catch (e) {
-      console.error(e);
-    }
+    const res = await articleType();
+    this.categoryOptions = res.data.map(it => {
+      return {label: it.typename, value: it.id}
+    });
+    this.categoryValue = this.categoryOptions[0].value;
+  },
+  mounted() {
+    tinymce.init({});
   }
-
 }
 </script>
 
 <style scoped>
-@import "~vue2-editor/dist/vue2-editor.css";
-/* Import the Quill styles you want */
-@import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.bubble.css';
-@import '~quill/dist/quill.snow.css';
 
 .write-article {
   background-color: white;

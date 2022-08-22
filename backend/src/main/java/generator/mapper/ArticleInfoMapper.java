@@ -1,8 +1,8 @@
 package generator.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 import generator.domain.ArticleInfo;
 
@@ -12,4 +12,12 @@ import generator.domain.ArticleInfo;
  * @createDate 2022-06-08 09:53:40 @Entity generator.domain.ArticleInfo
  */
 @Mapper
-public interface ArticleInfoMapper extends BaseMapper<ArticleInfo> {}
+public interface ArticleInfoMapper {
+
+    /**
+     * 获取分类的top5 访问量排序
+     *
+     * @return 集合
+     */
+    List<ArticleInfo> groupByTypeTop5();
+}
