@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import index from '@/components/index.vue'
 import writeArticle from '@/components/write-article'
 import articleInfo from '@/components/article-info'
+import notFound from "@/components/not-found";
 import login from "@/components/login";
 import store from "@/store";
 import Vue from "vue";
@@ -37,6 +38,7 @@ const _router = new VueRouter({
             component: articleInfo,
             props: true
         },
+        {path: '*', component: notFound}
     ]
 })
 const no_auth_router_arr = [
