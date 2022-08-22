@@ -18,8 +18,10 @@ services:
     image: ghcr.io/zhaoyiqing97/big_three/backend:latest
     container_name: backend
     depends_on:
-      - mysql
-      - elasticsearch
+      mysql:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
 
@@ -27,6 +29,7 @@ services:
     image: ghcr.io/zhaoyiqing97/big_three/frontend:latest
     container_name: frontend
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
       - '8080:80'
