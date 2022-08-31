@@ -19,3 +19,13 @@ GET http://127.0.0.1:8080/backend/no-auth/article-type/list
 
 ### article-info search
 GET http://127.0.0.1:8080/backend/no-auth/article-info/search?search=文章
+
+### es clear
+POST http://127.0.0.1:9200/article-search/_delete_by_query
+Content-Type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  }
+}

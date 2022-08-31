@@ -3,6 +3,7 @@ package generator.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,6 +57,16 @@ public class NoAuthController {
     @GetMapping("article-info/search")
     public ResultData<List<SearchVO>> articleInfoSearch(String search) {
         return ResultData.success(articleInfoService.search(search));
+    }
+
+    @GetMapping("article-info/{id}")
+    public ResultData<ArticleInfoVO> articleInfoGet(@PathVariable Long id) {
+        return ResultData.success(
+                articleInfoService.find(id)
+                        .map(it -> new ArticleInfoVO().from(it))
+                        .orElseThrow(() -> new RuntimeException("not found" + id))
+
+        );
     }
 
 }
