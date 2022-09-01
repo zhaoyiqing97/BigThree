@@ -68,13 +68,13 @@ public class ArticleInfoServiceImpl
         return articleSearchRepository.findByTitleOrMarkdownContent(search, search)
                 .stream()
                 .map(it -> {
-                    final SearchVO res = new SearchVO();
                     final ArticleSearch content = it.getContent();
-                    res.setId(content.getId());
                     final Map<String, List<String>> highlightFields = it.getHighlightFields();
-                    res.setTitle(highlightFields.getOrDefault("title", Lists.newArrayList(content.getTitle())).get(0));
-                    res.setContent(highlightFields.getOrDefault("markdownContent", Collections.singletonList("")).get(0));
-                    return res;
+                    return SearchVO.builder()
+                            .id(content.getId())
+                            .title(highlightFields.getOrDefault("title", Lists.newArrayList(content.getTitle())).get(0))
+                            .content(highlightFields.getOrDefault("markdownContent", Collections.singletonList("")).get(0))
+                            .build();
                 })
                 .collect(Collectors.toList());
     }
