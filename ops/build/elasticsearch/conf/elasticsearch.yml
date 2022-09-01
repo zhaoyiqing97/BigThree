@@ -17,3 +17,4 @@ bootstrap:
   memory_lock: false
   system_call_filter: false
 ingest.geoip.downloader.enabled: false
+xpack.security.enabled: true

@@ -19,6 +19,8 @@ services:
     build:
       context: ../../build/elasticsearch
     container_name: elasticsearch
+    environment:
+      - ELASTIC_PASSWORD=ZAQ!2wsx
     ports:
       - '9200:9200'
       - '9300:9300'

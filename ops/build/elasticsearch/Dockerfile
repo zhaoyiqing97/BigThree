@@ -2,7 +2,7 @@ FROM elasticsearch:7.14.0
 
 # todo jq
 # todo yellow
-HEALTHCHECK --start-period=20s CMD curl -s http://localhost:9200/_cluster/health | grep -E 'green|yellow' || exit 1
+HEALTHCHECK --start-period=20s CMD curl -u elastic:$ELASTIC_PASSWORD -s http://localhost:9200/_cluster/health | grep green || exit 1
 
 EXPOSE 9200 9300
 

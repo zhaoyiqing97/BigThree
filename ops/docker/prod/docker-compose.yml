@@ -13,6 +13,8 @@ services:
   elasticsearch:
     image: ghcr.io/zhaoyiqing97/big_three/elasticsearch:latest
     container_name: elasticsearch
+    environment:
+      - ELASTIC_PASSWORD=ZAQ!2wsx
 
   backend:
     image: ghcr.io/zhaoyiqing97/big_three/backend:latest

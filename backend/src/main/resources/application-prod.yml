@@ -7,3 +7,5 @@ spring:
 
   elasticsearch:
     uris: http://elasticsearch:9200
+    password: ZAQ!2wsx
+    username: elastic
