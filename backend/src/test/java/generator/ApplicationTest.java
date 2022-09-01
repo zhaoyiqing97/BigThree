@@ -1,5 +1,6 @@
 package generator;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import generator.domain.vo.SearchVO;
 import lombok.val;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,12 +97,15 @@ class ApplicationTest {
         //start
         final StopWatch stopWatch = StopWatch.createStarted();
         final org.springframework.util.StopWatch stopWatchSpring = new org.springframework.util.StopWatch();
+        final Stopwatch stopWatchGoogle = Stopwatch.createStarted();
 
         // task1
         stopWatchSpring.start("task1");
         TimeUnit.SECONDS.sleep(1L);
         stopWatch.split();
         stopWatchSpring.stop();
+        stopWatchGoogle.stop();
+        System.out.println(stopWatchGoogle.elapsed());
         System.out.println(stopWatch.formatSplitTime());
 
         // task2
@@ -114,5 +119,11 @@ class ApplicationTest {
         stopWatch.stop();
         System.out.println(stopWatchSpring.prettyPrint());
         System.out.println(stopWatch.formatTime());
+    }
+
+    @Test
+    void testBuilder() {
+        final SearchVO vo = SearchVO.builder().id(System.currentTimeMillis()).build();
+        System.out.println(vo);
     }
 }
