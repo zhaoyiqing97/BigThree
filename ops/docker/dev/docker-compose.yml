@@ -11,17 +11,19 @@ services:
       - /var/lib/mysql-files
     environment:
       - MYSQL_ROOT_PASSWORD=ZAQ!2wsx
-  #    ports:
-  #      - '3306:3306'
+    ports:
+      - '3306:3306'
 
   elasticsearch:
     image: big_three/dev/elasticsearch:latest
     build:
       context: ../../build/elasticsearch
     container_name: elasticsearch
-  #    ports:
-  #      - '9200:9200'
-  #      - '9300:9300'
+    environment:
+      - ELASTIC_PASSWORD=ZAQ!2wsx
+    ports:
+      - '9200:9200'
+      - '9300:9300'
 
   backend:
     image: big_three/dev/backend:latest

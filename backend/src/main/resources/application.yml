@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-circular-references: true
   application:
     name: big-three
   profiles:
@@ -10,6 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+    open-in-view: false
 server:
   port: 8080
   servlet:

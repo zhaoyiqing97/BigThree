@@ -8,7 +8,7 @@ GET http://127.0.0.1:8080/backend/actuator/health
 POST http://127.0.0.1:8080/backend/login
 Content-Type: application/x-www-form-urlencoded
 
-username=1324576%40qq.com&password=123456
+username=admin%40qq.com&password=123456
 
 ### article-info page
 # many sort ?sort=firstname&sort=lastname,asc
@@ -20,8 +20,25 @@ GET http://127.0.0.1:8080/backend/no-auth/article-type/list
 ### article-info search
 GET http://127.0.0.1:8080/backend/no-auth/article-info/search?search=文章
 
-### es clear
+### es info
+GET http://127.0.0.1:9200/_cat/health?v&pretty
+Authorization: Basic elastic ZAQ!2wsx
+
+### es status
+GET http://127.0.0.1:9200/_cluster/health
+Authorization: Basic elastic ZAQ!2wsx
+
+### index info
+GET http://127.0.0.1:9200/article-search?pretty
+Authorization: Basic elastic ZAQ!2wsx
+
+### index delte
+DELETE http://127.0.0.1:9200/article-search
+Authorization: Basic elastic ZAQ!2wsx
+
+### index clear
 POST http://127.0.0.1:9200/article-search/_delete_by_query
+Authorization: Basic elastic ZAQ!2wsx
 Content-Type: application/json
 
 {

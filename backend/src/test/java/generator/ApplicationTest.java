@@ -1,9 +1,11 @@
 package generator;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,9 +14,11 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import generator.domain.vo.SearchVO;
 import lombok.val;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,5 +90,40 @@ class ApplicationTest {
     @Test
     void passwordTest() {
         System.out.println(passwordEncoder.encode("123456"));
+    }
+
+    @Test
+    void stopWatch() throws InterruptedException {
+        //start
+        final StopWatch stopWatch = StopWatch.createStarted();
+        final org.springframework.util.StopWatch stopWatchSpring = new org.springframework.util.StopWatch();
+        final Stopwatch stopWatchGoogle = Stopwatch.createStarted();
+
+        // task1
+        stopWatchSpring.start("task1");
+        TimeUnit.SECONDS.sleep(1L);
+        stopWatch.split();
+        stopWatchSpring.stop();
+        stopWatchGoogle.stop();
+        System.out.println(stopWatchGoogle.elapsed());
+        System.out.println(stopWatch.formatSplitTime());
+
+        // task2
+        stopWatchSpring.start("task2");
+        TimeUnit.SECONDS.sleep(2L);
+        stopWatch.split();
+        stopWatchSpring.stop();
+        System.out.println(stopWatch.formatSplitTime());
+
+        // stop
+        stopWatch.stop();
+        System.out.println(stopWatchSpring.prettyPrint());
+        System.out.println(stopWatch.formatTime());
+    }
+
+    @Test
+    void testBuilder() {
+        final SearchVO vo = SearchVO.builder().id(System.currentTimeMillis()).build();
+        System.out.println(vo);
     }
 }
