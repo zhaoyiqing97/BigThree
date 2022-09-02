@@ -1,9 +1,11 @@
 package generator.controller;
 
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.lang.model.type.NullType;
 
@@ -29,5 +31,10 @@ public class Controller {
                                                @RequestBody ArticleInfoBO bo) {
         articleInfoService.publishArticle(customerUser.getUserInfo().getId(), bo);
         return ResultData.success(null);
+    }
+
+    @GetMapping("/test")
+    public ResultData test() {
+        return ResultData.success("null");
     }
 }
