@@ -26,6 +26,7 @@ public class BigThreeFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String requestUri = request.getRequestURI();
         long start = System.currentTimeMillis();
+        log.info("before doFilter {}", requestUri);
         filterChain.doFilter(request, response);
         log.info("uri [{}],use [{}]ms", requestUri, (System.currentTimeMillis() - start));
     }

@@ -5,6 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import generator.Interceptor.BigThreeInterceptor;
 
 /**
  * WebMvcConfig.
@@ -14,7 +18,12 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  * @serial 2022-08-15 : base version.
  */
 @Configuration
-public class WebMvcConfig {
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new BigThreeInterceptor()).addPathPatterns("/**");
+    }
 
     /**
      * web 请求的转换器，自动识别配置的spring bean

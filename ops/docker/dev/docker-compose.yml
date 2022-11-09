@@ -25,6 +25,35 @@ services:
       - '9200:9200'
       - '9300:9300'
 
+  skywalking-server:
+    image: big_three/dev/skywalking-server:latest
+    build:
+      context: ../../build/skywalking/server
+    container_name: skywalking-server
+    ports:
+      - '12800:12800'
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - SW_STORAGE=elasticsearch
+      - SW_STORAGE_ES_CLUSTER_NODES=elasticsearch:9200
+      - SW_ES_USER=elastic
+      - SW_ES_PASSWORD=ZAQ!2wsx
+
+  skywalking-ui:
+    image: big_three/dev/skywalking-ui:latest
+    build:
+      context: ../../build/skywalking/ui
+    container_name: skywalking-ui
+    depends_on:
+      skywalking-server:
+        condition: service_healthy
+    environment:
+      - SW_OAP_ADDRESS=http://skywalking-server:12800
+    ports:
+      - '18080:8080'
+
   backend:
     image: big_three/dev/backend:latest
     build:
@@ -37,6 +66,9 @@ services:
         condition: service_healthy
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
+      - SW_AGENT_NAME=big_three::backend
+      - SW_LOGGING_DIR=/logs
+      - SW_AGENT_COLLECTOR_BACKEND_SERVICES=skywalking-server:11800
 
   frontend:
     image: big_three/dev/frontend:latest
