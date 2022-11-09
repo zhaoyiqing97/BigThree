@@ -9,13 +9,14 @@
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "3.2.8",
-    "tinymce": "5.4.2",
     "axios": "0.27.2",
     "core-js": "3.22.8",
     "element-ui": "2.15.9",
     "js-cookie": "3.0.1",
     "lodash": "4.17.21",
     "nes.css": "2.3.0",
+    "skywalking-client-js": "0.9.0",
+    "tinymce": "5.4.2",
     "vue": "2.6.14",
     "vue-router": "3.5.4",
     "vuex": "3.4.0"
