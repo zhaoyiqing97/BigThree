@@ -11,6 +11,7 @@
     <properties>
         <mybatis-verison>2.2.0</mybatis-verison>
         <mysql-connector-verison>8.0.28</mysql-connector-verison>
+        <skywalking-java-version>8.12.0</skywalking-java-version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -42,6 +43,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--        skywalking log-->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>${skywalking-java-version}</version>
+        </dependency>
+        <!-- 如果想在项目代码中获取链路TraceId，则需要引入此依赖 -->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-trace</artifactId>
+            <version>${skywalking-java-version}</version>
         </dependency>
         <!--web-->
         <dependency>

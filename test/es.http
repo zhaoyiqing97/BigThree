@@ -6,6 +6,10 @@ Authorization: Basic elastic ZAQ!2wsx
 GET http://127.0.0.1:9200/_cluster/health
 Authorization: Basic elastic ZAQ!2wsx
 
+### index list
+GET http://127.0.0.1:9200/_aliases?pretty=true
+Authorization: Basic elastic ZAQ!2wsx
+
 ### index info
 GET http://127.0.0.1:9200/article-search?pretty
 Authorization: Basic elastic ZAQ!2wsx
@@ -24,3 +28,4 @@ Content-Type: application/json
     "match_all": {}
   }
 }
+

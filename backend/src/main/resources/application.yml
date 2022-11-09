@@ -27,10 +27,3 @@ management:
       show-details: always
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.data.elasticsearch.client.WIRE: TRACE
-    generator.mapper: DEBUG
-    root: INFO
