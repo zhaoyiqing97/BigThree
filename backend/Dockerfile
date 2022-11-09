@@ -16,8 +16,9 @@ COPY ./target/extracted/dependencies/ ./
 COPY ./target/extracted/spring-boot-loader/ ./
 COPY ./target/extracted/snapshot-dependencies/ ./
 COPY ./target/extracted/application/ ./
+ADD ./apache-skywalking-java-agent-8.12.0.tgz ./skywalking-package/
 
 ENV JAVA_OPTS="-Xmx128m -Xms128m -XX:+UseG1GC"
 
 # JarLauncher是从 JAR 中提取到镜像中的，因此它可以用于启动应用程序，而无需对主应用程序类进行硬编码。
-ENTRYPOINT ["sh", "-c","java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["sh", "-c","java -javaagent:/app/skywalking-package/skywalking-agent/skywalking-agent.jar ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher"]
