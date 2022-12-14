@@ -16,8 +16,22 @@ import lombok.Data;
 @ConfigurationProperties("big-three")
 @Data
 public class ProjectSetting {
+  /**
+   * 允许跨域的域名
+   */
+  private String[] corsMappings;
+
+  /**
+   * 开启功能模块
+   */
+  private OtherEnable enable;
+
+  @Data
+  static class OtherEnable {
     /**
-     * 允许跨域的域名
+     * es 检索模块
      */
-    private String[] corsMappings;
+    private boolean elasticsearch = true;
+  }
 }
+
