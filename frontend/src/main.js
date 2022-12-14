@@ -10,6 +10,7 @@ import 'nes.css/css/nes.css';
 
 import '@/index.css';
 import '@/font.css';
+import '@/filters';
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false

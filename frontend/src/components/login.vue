@@ -6,25 +6,22 @@
       <el-tab-pane label="login"
                    name="login">
         <div class="w-3/12 text-left">
-          <div class="nes-field py-5">
+          <div class="py-5">
             <label for="name_field">Email</label>
-            <input id="name_field"
-                   v-model="username"
-                   class="nes-input"
-                   type="email">
+            <el-input id="name_field"
+                      v-model="username"
+                      type="email"/>
           </div>
-          <div class="nes-field py-5">
+          <div class="py-5">
             <label for="name_field">Password</label>
-            <!--            todo password 字体颜色问题-->
-            <input id="name_field"
-                   v-model="password"
-                   class="nes-input"
-                   type="text">
+            <el-input id="name_field"
+                      v-model="password"
+                      show-password/>
           </div>
-          <el-button class="nes-btn is-success"
-                     type="button"
-                     @click="login()">Login
-          </el-button>
+          <button class="nes-btn is-success"
+                  type="button"
+                  @click="login()">Login
+          </button>
         </div>
       </el-tab-pane>
       <el-tab-pane label="register"
