@@ -9,9 +9,14 @@ import generator.domain.es.ArticleSearch;
 import generator.domain.vo.SearchVO;
 import generator.service.SearchService;
 
+/**
+ * 搜索接口 无实现，异常
+ *
+ * @author liubin
+ */
 @Service
-@ConditionalOnMissingBean(ESSearchServiceImpl.class)
-public class NOSearchServiceImpl implements SearchService {
+@ConditionalOnMissingBean(EsSearchServiceImpl.class)
+public class NoSearchServiceImpl implements SearchService {
   @Override
   public void saveArticleSearch(ArticleSearch search) {
     throw new UnsupportedOperationException("[saveArticleSearch] no elasticsearch no search");

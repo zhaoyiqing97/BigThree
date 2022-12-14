@@ -16,10 +16,15 @@ import generator.repository.ArticleSearchRepository;
 import generator.service.SearchService;
 import lombok.AllArgsConstructor;
 
+/**
+ * 搜索接口 es实现
+ *
+ * @author liubin
+ */
 @Service
 @AllArgsConstructor
 @ConditionalOnProperty("big-three.enable.elasticsearch")
-public class ESSearchServiceImpl implements SearchService {
+public class EsSearchServiceImpl implements SearchService {
   private final ArticleSearchRepository articleSearchRepository;
 
 
