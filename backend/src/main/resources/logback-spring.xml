@@ -17,10 +17,12 @@
         </encoder>
     </appender>
 
-    <logger name="org.hibernate.SQL" level=" DEBUG"/>
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level=" TRACE"/>
-    <logger name="org.springframework.data.elasticsearch.client.WIRE" level=" TRACE"/>
-    <logger name="generator.mapper" level=" DEBUG"/>
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="tracer" level="TRACE"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+    <logger name="org.springframework.data.elasticsearch.client.WIRE" level="TRACE"/>
+    <logger name="org.springframework.data.elasticsearch.core" level="DEBUG"/>
+    <logger name="generator.mapper" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>

@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   elasticsearch:
-    uris: http://localhost:9200
+    uris: localhost:9200
     password: ZAQ!2wsx
     username: elastic
 
