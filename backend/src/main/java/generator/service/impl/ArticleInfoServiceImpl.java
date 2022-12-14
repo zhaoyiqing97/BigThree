@@ -56,7 +56,7 @@ public class ArticleInfoServiceImpl
 
   @Override
   public List<SearchVO> search(String search) {
-    return searchService.findByTitleOrMarkdownContent(search, search);
+    return searchService.findByTitleOrMarkdownContent(search);
 
   }
 

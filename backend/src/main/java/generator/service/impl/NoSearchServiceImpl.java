@@ -23,7 +23,7 @@ public class NoSearchServiceImpl implements SearchService {
   }
 
   @Override
-  public List<SearchVO> findByTitleOrMarkdownContent(String title, String content) {
+  public List<SearchVO> findByTitleOrMarkdownContent(String search) {
     throw new UnsupportedOperationException("[findByTitleOrMarkdownContent] no elasticsearch no search");
   }
 }

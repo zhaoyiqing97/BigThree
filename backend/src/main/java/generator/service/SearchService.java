@@ -22,9 +22,8 @@ public interface SearchService {
   /**
    * 搜索文章
    *
-   * @param title   标题
-   * @param content 内容
+   * @param search str
    * @return 结果
    */
-  List<SearchVO> findByTitleOrMarkdownContent(String title, String content);
+  List<SearchVO> findByTitleOrMarkdownContent(String search);
 }

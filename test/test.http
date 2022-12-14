@@ -18,5 +18,5 @@ GET http://127.0.0.1:8080/backend/no-auth/article-info/page?page=1&size=2&sort=r
 GET http://127.0.0.1:8080/backend/no-auth/article-type/list
 
 ### article-info search
-GET http://127.0.0.1:8080/backend/no-auth/article-info/search?search=文章
+GET http://127.0.0.1:8080/backend/no-auth/article-info/search?search=neirong
 
