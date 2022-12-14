@@ -3,9 +3,8 @@
     <p class="text-left title py-1 pl-3 nes-text is-primary">Ask Question</p>
     <p class="text-left py-3">
       <label for="title">title</label>
-      <input id="title"
-             v-model="title"
-             class="nes-input">
+      <el-input id="title"
+                v-model="title"/>
     </p>
     <div class="border-solid"
          style="min-height: 50vh">
@@ -32,24 +31,24 @@
     </div>
     <div class="my-5">
       <label for="pay_select">pay</label>
-      <div class="nes-select">
-        <select id="pay_select"
-                v-model="payValue">
+      <div>
+        <el-select id="pay_select"
+                   v-model="payValue">
           <option disabled
                   hidden
                   selected
                   value="">Select...
           </option>
-          <option
+          <el-option
               v-for="item in payOptions"
               :key="item.value"
               :label="item.label"
               :value="item.value">
-          </option>
-        </select>
+          </el-option>
+        </el-select>
       </div>
     </div>
-    <div class="flex my-5">
+    <div class="my-5">
       <button class="nes-btn is-success is-large"
               type="button"
               @click="publishNow()">Publish Now
@@ -58,7 +57,7 @@
   </div>
 </template>
 <script>
-import {articleType, articlePush} from "@/request/article";
+import {articlePush, articleType} from "@/request/article";
 // 引入组件
 import Editor from '@tinymce/tinymce-vue'
 import tinymce from 'tinymce/tinymce'
