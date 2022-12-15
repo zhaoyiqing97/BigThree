@@ -8,6 +8,7 @@ import java.util.List;
 import generator.domain.es.ArticleSearch;
 import generator.domain.vo.SearchVO;
 import generator.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 搜索接口 无实现，异常
@@ -15,11 +16,12 @@ import generator.service.SearchService;
  * @author liubin
  */
 @Service
+@Slf4j
 @ConditionalOnMissingBean(EsSearchServiceImpl.class)
 public class NoSearchServiceImpl implements SearchService {
   @Override
   public void saveArticleSearch(ArticleSearch search) {
-    throw new UnsupportedOperationException("[saveArticleSearch] no elasticsearch no search");
+    log.warn("[saveArticleSearch] no elasticsearch no search");
   }
 
   @Override

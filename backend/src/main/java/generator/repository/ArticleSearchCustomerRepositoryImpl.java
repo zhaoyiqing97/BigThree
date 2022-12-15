@@ -2,6 +2,7 @@ package generator.repository;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Repository
+@Lazy
 public class ArticleSearchCustomerRepositoryImpl implements ArticleSearchCustomerRepository {
 
   private final ElasticsearchOperations operations;
