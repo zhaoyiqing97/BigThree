@@ -11,8 +11,7 @@
       </ul>
     </div>
     <div class="bottom p-2">
-      <ul :infinite-scroll="load"
-          class="infinite-list divide-y"
+      <ul class="infinite-list divide-y"
           style="overflow:auto">
         <li v-for="(item,index) in articleList"
             :key="index"

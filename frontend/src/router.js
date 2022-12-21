@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router'
-import index from '@/components/index.vue'
-import writeArticle from '@/components/write-article'
-import articleInfo from '@/components/article-info'
+import index from '@/view'
+import writeArticle from '@/view/write-article'
+import articleInfo from '@/view/article-info'
 import notFound from "@/components/not-found";
-import login from "@/components/login";
+import login from "@/view/login";
 import store from "@/store";
 import Vue from "vue";
-import ClientMonitor from 'skywalking-client-js';
+import {behaviorSend} from '@/directive/behavior';
 
 Vue.use(VueRouter)
 
@@ -48,14 +48,8 @@ const no_auth_router_arr = [
     /^\/article-info\/\d+$/
 ]
 
-function sendSkyWalking(to) {
-    ClientMonitor.setPerformance({
-        collector: process.env.VUE_APP_SKY_BASE + process.env.VUE_APP_SKY_CONTEXT,
-        service: 'big_three::frontend',
-        serviceVersion: '2.0.0',
-        pagePath: to,
-        useFmp: true
-    });
+function sendSkyWalking(to, userId) {
+    behaviorSend(to, userId);
 }
 
 _router.beforeEach((to, from, next) => {
@@ -63,13 +57,13 @@ _router.beforeEach((to, from, next) => {
     console.debug(`router.beforeEach token ${user}`, from, to, no_auth_router_arr);
     // 检查用户是否已登录
     if (user) {
-        sendSkyWalking(to);
+        sendSkyWalking(to.path, user.id);
         next();
         return;
     }
     for (const it of no_auth_router_arr) {
         if (it.test(to.path)) {
-            sendSkyWalking(to);
+            sendSkyWalking(to.path);
             next();
             return;
         }

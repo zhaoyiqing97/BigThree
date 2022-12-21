@@ -51,6 +51,7 @@
     <div class="my-5">
       <button class="nes-btn is-success is-large"
               type="button"
+              v-behavior="{type:'articlePublish',resource:null}"
               @click="publishNow()">Publish Now
       </button>
     </div>
