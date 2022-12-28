@@ -40,6 +40,7 @@ services:
       - SW_STORAGE_ES_CLUSTER_NODES=elasticsearch:9200
       - SW_ES_USER=elastic
       - SW_ES_PASSWORD=ZAQ!2wsx
+      - SW_STORAGE_ES_INDEX_REPLICAS_NUMBER=0
 
   skywalking-ui:
     image: big_three/dev/skywalking-ui:latest
@@ -64,6 +65,8 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
+    ports:
+      - '8080:8080'
     environment:
       - JAVA_OPTS=-Xmx128m -Xms128m -XX:+UseG1GC -Dspring.profiles.active=prod
       - SW_AGENT_NAME=big_three::backend
