@@ -7,3 +7,8 @@
     font-family: 'kongtext';
     src: url('./assets/kongtext.ttf');
 }
+
+@font-face {
+    font-family: 'pixel';
+    src: url('./assets/ark-pixel-12px-proportional-zh_cn.woff2');
+}

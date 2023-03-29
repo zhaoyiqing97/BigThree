@@ -15,6 +15,6 @@ public class NoElasticsearchRestHealthIndicator extends AbstractHealthIndicator 
   @Override
   protected void doHealthCheck(Health.Builder builder) {
     log.info("NoElasticsearchRestHealthIndicator.doHealthCheck");
-    builder.up().withDetail("always up", "Elasticsearch si disable");
+    builder.up().withDetail("always up", "Elasticsearch is disable");
   }
 }

@@ -32,6 +32,7 @@ services:
     container_name: skywalking-server
     ports:
       - '12800:12800'
+      - '11800:11800'
     depends_on:
       elasticsearch:
         condition: service_healthy

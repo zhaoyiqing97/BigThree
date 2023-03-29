@@ -27,7 +27,7 @@ export default {
 
 <style>
 #app {
-  font-family: zpix-pixel-font, kongtext,serif;
+  font-family: pixel, zpix-pixel-font, kongtext, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
