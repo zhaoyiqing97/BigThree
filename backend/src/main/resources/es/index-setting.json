@@ -21,7 +21,8 @@
         "keep_full_pinyin": true,
         "keep_original": false,
         "limit_first_letter_length": 16,
-        "lowercase": true
+        "lowercase": true,
+        "ignore_pinyin_offset": false
       }
     }
   }

@@ -2,10 +2,14 @@ spring:
   datasource:
     username: big_three
     password: big_three
-    url: jdbc:mysql://mysql:3306/big_three?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://mysql:3306/big_three?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   elasticsearch:
-    uris: http://elasticsearch:9200
+    uris: elasticsearch:9200
     password: ZAQ!2wsx
     username: elastic
+
+big-three:
+  enable:
+    elasticsearch: true

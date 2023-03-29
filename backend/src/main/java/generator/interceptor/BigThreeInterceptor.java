@@ -1,4 +1,4 @@
-package generator.Interceptor;
+package generator.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -2,11 +2,11 @@ spring:
   datasource:
     username: big_three
     password: big_three
-    url: jdbc:mysql://127.0.0.1:3306/big_three?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/big_three?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   elasticsearch:
-    uris: http://localhost:9200
+    uris: localhost:9200
     password: ZAQ!2wsx
     username: elastic
 
@@ -14,3 +14,5 @@ big-three:
   cors-mappings:
     - http://127.0.0.1:7001
     - http://localhost:7001
+  enable:
+    elasticsearch: true

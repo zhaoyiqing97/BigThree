@@ -25,7 +25,7 @@
         <i class="nes-icon coin is-small"></i>
         <span class="mx-1">{{ item.commentNum }}</span>
         <i class="nes-icon like is-small"></i>
-        <span class="mx-1">{{ item.visitNum }}</span>
+        <span class="mx-1">{{ item.visitNum | visitNum }}</span>
       </div>
     </div>
   </div>
