@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import generator.domain.es.ArticleSearch;
 import lombok.AllArgsConstructor;
 
+/**
+ * @author wmx
+ * */
 @AllArgsConstructor
 @Repository
 @Lazy

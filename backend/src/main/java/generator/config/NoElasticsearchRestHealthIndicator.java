@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import generator.service.impl.EsSearchServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * @author wmx
+ * */
 @Component("elasticsearchHealthIndicator")
 @Slf4j
 @ConditionalOnMissingBean(EsSearchServiceImpl.class)
